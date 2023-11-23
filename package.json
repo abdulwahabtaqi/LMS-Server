@@ -1,0 +1,24 @@
+{
+  "name": "lms-server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start:dev": "nodemon -r tsconfig-paths/register --watch './**/*.ts' --exec 'ts-node' app.ts",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.9.4",
+    "install": "^0.13.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0"
+  }
+}

@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+      "target": "es6",                    
+      "module": "commonjs",             
+      "strict": true,                    
+      "esModuleInterop": true,           
+      "skipLibCheck": true,             
+      "forceConsistentCasingInFileNames": true, 
+  
+      "outDir": "dist",                
+      "rootDir": "./src",               
+      
+      "moduleResolution": "node",         
+  
+      "strictNullChecks": true,           
+      "noImplicitAny": true,              
+      "baseUrl": "./src",                   
+      "paths": {
+        "@/*": ["./*"],
+         "tslib":["node_modules/tslib/tslib.d.ts"]                 
+      },
+  
+      "declaration": true,               
+      "declarationMap": true,            
+    },
+    "include": [
+      "src/**/*.ts"                      
+    ],
+    "exclude": [
+      "node_modules"                    
+    ]
+  }
+  
