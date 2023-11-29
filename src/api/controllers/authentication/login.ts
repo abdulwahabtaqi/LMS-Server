@@ -1,6 +1,5 @@
 import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
-import { validationResult } from 'express-validator';
 import { JWTEncryptedData, Login } from "./types";
 import { prisma } from "@/shared/prisma";
 import bcrypt from 'bcryptjs';
