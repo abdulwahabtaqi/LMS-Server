@@ -12,7 +12,7 @@ export const UpdateSchoolHandler = async (req: Request, res: Response) => {
         const { type } = req.body as School;
         const id = req.params?.id as string;
         const school = await prisma.school.findFirst({
-            where: {id }
+            where: {id}
         });
         if (_.isEmpty(school) ) {
             return ApiResponse(false, "School type not found", null, 404, res);
@@ -29,6 +29,7 @@ export const UpdateSchoolHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "School type updated", updatedSchool, 200, res);
     }
     catch (error) {
+        console.log("UpdateSchoolHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

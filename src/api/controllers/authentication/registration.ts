@@ -6,8 +6,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 
-
-
 export const RegistrationHandler = async (req: Request, res: Response) => {
     try {
         const { email,name,role,password } = req.body as Registration;
@@ -31,6 +29,7 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "Registration successful", token, 200, res);
     }
     catch (error) {
+        console.log("RegistrationHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Validation Error", error, 500, res);
     }
 }

@@ -27,6 +27,7 @@ export const CreateSchoolHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "School type created", newSchool, 200, res);
     }
     catch (error) {
+        console.log("CreateSchoolHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

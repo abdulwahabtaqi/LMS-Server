@@ -10,7 +10,7 @@ export const FetchGradeBySchoolTypeHandler = async (req: Request, res: Response)
     try {
         const type = req.params?.type as string;
         const grade = await prisma.grade.findMany({
-            where: { schoolId:type?.toLowerCase() },
+            where: { grade:type?.toLowerCase() },
             include:{
                 school:true,
                 subjects:true
@@ -22,6 +22,7 @@ export const FetchGradeBySchoolTypeHandler = async (req: Request, res: Response)
         return ApiResponse(true, "Grade found", grade, 200, res);
     }
     catch (error) {
+        console.log("FetchGradeBySchoolTypeHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

@@ -10,12 +10,13 @@ app.use(express.json());
 const port = process.env.PORT;
 app.use(cors({ origin: true, credentials: true }));
 app.use(helmet());
-
+import routes from './api/routes';
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+app.use('/api/v1',routes)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

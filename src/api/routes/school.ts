@@ -1,16 +1,18 @@
-import {Router} from 'express';
-import {CreateSchoolHandler, UpdateSchoolHandler, FetchSchoolByTypeHandler, 
-    FetchSchoolsHandler, DeleteSchoolHandler,FetchSchoolByIdHandler
+import { Router } from 'express';
+import {
+    CreateSchoolHandler, UpdateSchoolHandler, FetchSchoolByTypeHandler,
+    FetchSchoolsHandler, DeleteSchoolHandler, FetchSchoolByIdHandler
 } from '../controllers';
-import { CreateSchoolValidator, UpdateSchoolValidator} from '@/validators';
+import { CreateSchoolValidator, UpdateSchoolValidator } from '@/validators';
+import { validationMiddleware } from '@/middlewares';
 const router = Router();
 
-router.post('/create',CreateSchoolValidator,CreateSchoolHandler);
-router.post('/update',UpdateSchoolValidator,UpdateSchoolHandler);
-router.post('/fetch',FetchSchoolsHandler);
-router.post('/fetchById/:id',FetchSchoolByIdHandler);
-router.post('/fetchByType/:type',FetchSchoolByTypeHandler);
-router.post('/deleteById/:id',DeleteSchoolHandler);
+router.post('/create', CreateSchoolValidator,validationMiddleware, CreateSchoolHandler);
+router.put('/update/:id', UpdateSchoolValidator,validationMiddleware, UpdateSchoolHandler);
+router.get('/fetch', FetchSchoolsHandler);
+router.get('/fetchById/:id', FetchSchoolByIdHandler);
+router.get('/fetchByType/:type', FetchSchoolByTypeHandler);
+router.delete('/deleteById/:id', DeleteSchoolHandler);
 
 export default router;
 

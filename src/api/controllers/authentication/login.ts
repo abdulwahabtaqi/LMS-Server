@@ -24,6 +24,7 @@ export const LoginHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "Login successful", token, 200, res);
     }
     catch (error) {
+        console.log("LoginHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Validation Error", error, 500, res);
     }
 }

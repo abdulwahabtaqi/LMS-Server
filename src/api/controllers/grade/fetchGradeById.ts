@@ -22,6 +22,7 @@ export const FetchGradeByIdHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "Grade found", grade, 200, res);
     }
     catch (error) {
+        console.log("FetchGradeByIdHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

@@ -24,6 +24,7 @@ export const DeleteSchoolHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "School type deleted", deletedSchool, 200, res);
     }
     catch (error) {
+        console.log("DeleteSchoolHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

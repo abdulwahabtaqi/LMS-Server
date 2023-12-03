@@ -1,3 +1,4 @@
+import { UserRole } from "@prisma/client";
 
 export interface Login {
     email: string;
@@ -8,7 +9,7 @@ export interface Login {
 export interface Registration {
     name: string;
     email: string;
-    role: string;
+    role: UserRole;
     password: string;
 }
 

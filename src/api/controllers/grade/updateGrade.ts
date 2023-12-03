@@ -2,6 +2,7 @@ import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
 import { prisma } from "@/shared/prisma";
 import _ from "lodash";
+import { Grade } from "./types";
 
 
 
@@ -9,17 +10,17 @@ import _ from "lodash";
 export const UpdateGradeHandler = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { name, schoolId } = req.body;
-        const grade = await prisma.grade.findFirst({
+        const { grade, schoolId } = req.body as Grade;
+        const checkGrade = await prisma.grade.findFirst({
             where: { id }
         });
-        if (_.isEmpty(grade)) {
+        if (_.isEmpty(checkGrade)) {
             return ApiResponse(false, "Grade not found", null, 404, res);
         }
         const updatedGrade = await prisma.grade.update({
             where: { id },
             data: {
-                grade:name?.toLowerCase(),
+                grade:grade?.toLowerCase(),
                 schoolId
             }
         });
@@ -29,6 +30,7 @@ export const UpdateGradeHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "Grade updated", updatedGrade, 200, res);
     }
     catch (error) {
+        console.log("UpdateGradeHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

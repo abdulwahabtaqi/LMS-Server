@@ -34,6 +34,7 @@ export const CreateGradeHandler = async (req: Request, res: Response) => {
         return ApiResponse(true, "Grade created", newGrade, 200, res);
     }
     catch (error) {
+        console.log("CreateGradeHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

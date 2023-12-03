@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start:dev": "prisma migrate dev --schema=./src/prisma/schema.prisma",
+    "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
     "prisma:generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "prisma:reset": "prisma migrate reset --force --schema=./src/prisma/schema.prisma",
     "prisma:devmigrate": "prisma migrate dev --schema=./src/prisma/schema.prisma",
@@ -29,10 +29,13 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/lodash": "^4.14.202",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.0.1",
     "tsconfig-paths": "^4.2.0",
     "tslib": "^2.6.2"
