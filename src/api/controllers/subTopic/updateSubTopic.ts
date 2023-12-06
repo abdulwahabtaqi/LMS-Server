@@ -10,6 +10,7 @@ import { SubTopic } from "./types";
 export const UpdateSubTopicHandler = async (req: Request, res: Response) => {
     try {
         const { subTopic, topicId } = req.body as SubTopic;
+        const id = req.params?.id as string;
         const topic = await prisma.topic.findUnique({
             where: {
                 id: topicId
@@ -20,7 +21,7 @@ export const UpdateSubTopicHandler = async (req: Request, res: Response) => {
         }
         const updatedSubTopic = await prisma.subTopic.update({
             where: {
-                id: req.params.id
+                id: id
             },
             data: {
                 subTopic: subTopic,

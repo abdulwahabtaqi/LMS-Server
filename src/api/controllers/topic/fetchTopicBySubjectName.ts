@@ -8,11 +8,11 @@ import _ from "lodash";
 
 export const FetchTopicBySubjectNameHandler = async (req: Request, res: Response) => {
     try {
-        const name = req.params?.name as string;
+        const subject = req.params?.subject as string;
         const topic = await prisma.topic.findMany({
             where:{
                 subject:{
-                    subject:name
+                    subject:subject
                 }
             },
             include:{

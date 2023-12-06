@@ -11,8 +11,8 @@ router.post('/create',CreateSubTopicValidator,validationMiddleware,CreateSubTopi
 router.put('/update/:id',UpdateSubTopicValidator,validationMiddleware,UpdateSubTopicHandler);
 router.get('/fetch',FetchSubTopicsHandler);
 router.get('/fetchById/:id',FetchSubTopicByIdHandler);
-router.get('/fetchByName/:name/:topicId',FetchSubTopicBySubTopicName);
-router.get('/fetchByGrade/:topic',FetchSubTopicByTopicName);
+router.get('/fetchByName/:name',FetchSubTopicBySubTopicName);
+router.get('/fetchByTopic/:topic',FetchSubTopicByTopicName);
 router.delete('/deleteById/:id',DeleteSubTopicHandler);
 
 export default router;

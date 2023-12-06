@@ -16,6 +16,14 @@ export const CreateSubTopicHandler = async (req: Request, res: Response) => {
         if (!topic) {
             return ApiResponse(false, "Topic Not Found", null, 404, res);
         }
+        const subTopicExists = await prisma.subTopic.findFirst({
+            where: {
+                subTopic: subTopic,
+            }
+        });
+        if (subTopicExists) {
+            return ApiResponse(false, "SubTopic Already Exists", null, 409, res);
+        }
         const newSubTopic = await prisma.subTopic.create({
             data: {
                 subTopic: subTopic,

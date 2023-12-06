@@ -8,11 +8,11 @@ import _ from "lodash";
 
 export const FetchSubTopicByTopicName = async (req: Request, res: Response) => {
     try {
-        const name = req.params?.name as string;
+        const topic = req.params?.topic as string;
         const subTopic = await prisma.subTopic.findMany({
             where:{
                 topic:{
-                    topic:name
+                    topic:topic
                 }
             },
             include:{

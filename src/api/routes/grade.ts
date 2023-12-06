@@ -11,7 +11,7 @@ router.post('/create',CreateGradeValidator,validationMiddleware,CreateGradeHandl
 router.put('/update/:id',UpdateGradeValidator,validationMiddleware,UpdateGradeHandler);
 router.get('/fetch',FetchGradesHandler);
 router.get('/fetchById/:id',FetchGradeByIdHandler);
-router.get('/fetchByName/:gradeName',FetchGradeByGradeNameHandler);
+router.get('/fetchByName/:name',FetchGradeByGradeNameHandler);
 router.get('/fetchBySchoolType/:type',FetchGradeBySchoolTypeHandler);
 router.delete('/deleteById/:id',DeleteGradeHandler);
 

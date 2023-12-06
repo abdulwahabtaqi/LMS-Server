@@ -4,12 +4,12 @@ import {FetchSubjectByGradeHandler, FetchSubjectByIdHandler,
       FetchSubjectsHandler, CreateSubjectHandler,
        DeleteSubjectHandler, UpdateSubjectHandler
 } from '../controllers';
-import {  CreateTopicValidator, UpdateTopicValidator} from '@/validators';
+import {  CreateSubjectValidator, UpdateSubjectValidator} from '@/validators';
 import { validationMiddleware } from '@/middlewares';
 const router = Router();
 
-router.post('/create',CreateTopicValidator,validationMiddleware,CreateSubjectHandler);
-router.put('/update/:id',UpdateTopicValidator,validationMiddleware,UpdateSubjectHandler);
+router.post('/create',CreateSubjectValidator,validationMiddleware,CreateSubjectHandler);
+router.put('/update/:id',UpdateSubjectValidator,validationMiddleware,UpdateSubjectHandler);
 router.get('/fetch',FetchSubjectsHandler);
 router.get('/fetchById/:id',FetchSubjectByIdHandler);
 router.get('/fetchByName/:name',FetchSubjectBySubjectNameHandler);

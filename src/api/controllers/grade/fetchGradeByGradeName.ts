@@ -8,7 +8,7 @@ import _ from "lodash";
 
 export const FetchGradeByGradeNameHandler = async (req: Request, res: Response) => {
     try {
-        const gradeName = req.params?.gradeName as string;
+        const gradeName = req.params?.name as string;
         const grade = await prisma.grade.findFirst({
             where: { grade:gradeName?.toLowerCase() },
             include:{
