@@ -12,7 +12,7 @@ router.post('/create',CreateTopicValidator,validationMiddleware,CreateSubjectHan
 router.put('/update/:id',UpdateTopicValidator,validationMiddleware,UpdateSubjectHandler);
 router.get('/fetch',FetchSubjectsHandler);
 router.get('/fetchById/:id',FetchSubjectByIdHandler);
-router.get('/fetchByName/:name/:gradeId',FetchSubjectBySubjectNameHandler);
+router.get('/fetchByName/:name',FetchSubjectBySubjectNameHandler);
 router.get('/fetchByGrade/:grade',FetchSubjectByGradeHandler);
 router.delete('/deleteById/:id',DeleteSubjectHandler);
 

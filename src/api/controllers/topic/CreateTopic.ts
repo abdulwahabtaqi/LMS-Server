@@ -16,6 +16,14 @@ export const CreateTopicHandler = async (req: Request, res: Response) => {
         if (!subject) {
             return ApiResponse(false, "Subject Not Found", null, 404, res);
         }
+        const topicExists = await prisma.topic.findFirst({
+            where: {
+                topic: topic,
+            }
+        });
+        if (topicExists) {
+            return ApiResponse(false, "Topic Already Exists", null, 409, res);
+        }
         const newTopic = await prisma.topic.create({
             data: {
                 topic: topic,

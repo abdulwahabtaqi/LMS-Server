@@ -16,6 +16,14 @@ export const CreateSubjectHandler = async (req: Request, res: Response) => {
         if (!grade) {
             return ApiResponse(false, "Grade Not Found", null, 404, res);
         }
+        const subjectExists = await prisma.subject.findFirst({
+            where: {
+                subject: subject,
+            }
+        });
+        if (subjectExists) {
+            return ApiResponse(false, "Subject Already Exists", null, 409, res);
+        }
         const newSubject = await prisma.subject.create({
             data: {
                 subject: subject,

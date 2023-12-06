@@ -9,13 +9,13 @@ import _ from "lodash";
 export const UpdateSubjectHandler = async (req: Request, res: Response) => {
     try {
         const id = req.params?.id as string;
-        const { name, gradeId } = req.body;
-        const subject = await prisma.subject.findUnique({
+        const { subject } = req.body;
+        const subjectExists = await prisma.subject.findUnique({
             where:{
                 id:id
             }
         });
-        if(!subject){
+        if(!subjectExists){
             return ApiResponse(false, "Subject Not Found", null, 404, res);
         }
         const updatedSubject = await prisma.subject.update({
@@ -23,8 +23,7 @@ export const UpdateSubjectHandler = async (req: Request, res: Response) => {
                 id:id
             },
             data:{
-                subject:name,
-                gradeId
+                subject:subject,
             }
         });
         return ApiResponse(true, "Subject Updated Successfully", updatedSubject, 200, res);

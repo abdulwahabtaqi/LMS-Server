@@ -10,7 +10,9 @@ export const FetchGradeBySchoolTypeHandler = async (req: Request, res: Response)
     try {
         const type = req.params?.type as string;
         const grade = await prisma.grade.findMany({
-            where: { grade:type?.toLowerCase() },
+            where: { school:{
+                type:type?.toLowerCase() },
+            },
             include:{
                 school:true,
                 subjects:true

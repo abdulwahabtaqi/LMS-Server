@@ -9,12 +9,11 @@ import _ from "lodash";
 export const FetchSubjectBySubjectNameHandler = async (req: Request, res: Response) => {
     try {
         const name = req.params?.name as string;
-        const gradeId = req.params?.gradeId as string;
 
-const subject = await prisma.subject.findFirst({
+
+        const subject = await prisma.subject.findFirst({
             where: {
                 subject: name,
-                gradeId: gradeId
             },
             include: {
                 grade: true,
@@ -22,7 +21,7 @@ const subject = await prisma.subject.findFirst({
             }
         });
 
-        if(!subject){
+        if (!subject) {
             return ApiResponse(false, "Subject Not Found", null, 404, res);
         }
         return ApiResponse(true, "Subject Fetched Successfully", subject, 200, res);

@@ -2,5 +2,6 @@
 import {body} from 'express-validator';
 
 export const CreateTopicValidator = [
-    body('topic').isEmpty().withMessage('Topic is required'),
+    body('topic').notEmpty().withMessage('Topic is required'),
+    body('subjectId').notEmpty().withMessage('Subject is required'),
 ];
