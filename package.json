@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
-    "start": "nodemon -r tsconfig-paths/register src/app.ts",
+    "start": "node app/dist/app.js ",
     "start:prod": "node src/app.js",
     "prisma:generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "prisma:reset": "prisma migrate reset --force --schema=./src/prisma/schema.prisma",
