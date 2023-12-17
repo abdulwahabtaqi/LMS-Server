@@ -26,7 +26,7 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
             data: {
                 email,
                 name,
-                role:userRole,
+                role:"ADMIN",
                 password: hash
             }
         });
