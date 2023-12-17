@@ -25,7 +25,7 @@ enum QuestionType {
   LONG
 }
 
-enum DificultyLevel {
+enum DifficultyLevel {
   EASY
   MEDIUM
   HARD
@@ -100,7 +100,7 @@ model Questions {
   question       String?        
   @@unique([subTopicId, question])
   type           QuestionType
-  dificultyLevel DificultyLevel
+  DifficultyLevel DifficultyLevel
   answers        Answer[]
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
@@ -112,7 +112,6 @@ model Answer {
   questionId String?
   answer     String?    @unique
   type       QuestionType
-  isCorrect  Boolean
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }

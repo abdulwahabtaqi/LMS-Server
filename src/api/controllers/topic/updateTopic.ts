@@ -19,14 +19,6 @@ export const UpdateTopicHandler = async (req: Request, res: Response) => {
         if(!topicExists){
             return ApiResponse(false, "Topic Not Found", null, 404, res);
         }
-        const subject = await prisma.subject.findUnique({
-            where:{
-                id:subjectId
-            }
-        });
-        if(!subject){
-            return ApiResponse(false, "Subject Not Found", null, 404, res);
-        }
         const updatedTopic = await prisma.topic.update({
             where:{
                 id:id

@@ -19,6 +19,7 @@ export const CreateSubjectHandler = async (req: Request, res: Response) => {
         const subjectExists = await prisma.subject.findFirst({
             where: {
                 subject: subject,
+                gradeId: gradeId
             }
         });
         if (subjectExists) {

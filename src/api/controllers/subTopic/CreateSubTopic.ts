@@ -19,6 +19,7 @@ export const CreateSubTopicHandler = async (req: Request, res: Response) => {
         const subTopicExists = await prisma.subTopic.findFirst({
             where: {
                 subTopic: subTopic,
+                topicId: topicId
             }
         });
         if (subTopicExists) {

@@ -2,6 +2,7 @@ import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
 import { prisma } from "@/shared/prisma";
 import _ from "lodash";
+import { Subject } from "./types";
 
 
 
@@ -9,7 +10,7 @@ import _ from "lodash";
 export const UpdateSubjectHandler = async (req: Request, res: Response) => {
     try {
         const id = req.params?.id as string;
-        const { subject } = req.body;
+        const { subject, gradeId } = req.body as Subject;
         const subjectExists = await prisma.subject.findUnique({
             where:{
                 id:id
@@ -24,6 +25,7 @@ export const UpdateSubjectHandler = async (req: Request, res: Response) => {
             },
             data:{
                 subject:subject,
+                gradeId:gradeId
             }
         });
         return ApiResponse(true, "Subject Updated Successfully", updatedSubject, 200, res);

@@ -19,6 +19,7 @@ export const CreateTopicHandler = async (req: Request, res: Response) => {
         const topicExists = await prisma.topic.findFirst({
             where: {
                 topic: topic,
+                subjectId: subjectId
             }
         });
         if (topicExists) {
