@@ -9,8 +9,6 @@ import _ from "lodash";
 export const FetchSubjectBySubjectNameHandler = async (req: Request, res: Response) => {
     try {
         const name = req.params?.name as string;
-
-
         const subject = await prisma.subject.findFirst({
             where: {
                 subject: name,

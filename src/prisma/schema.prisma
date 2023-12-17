@@ -88,27 +88,27 @@ model SubTopic {
   topicId   String?
   subTopic  String?  
   @@unique([topicId, subTopic])
-  questions Questions[]
+  questions Question[]
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }
 
-model Questions {
-  id             String         @id @default(uuid())
-  subTopic       SubTopic?      @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
-  subTopicId     String?
-  question       String?        
+model Question {
+  id              String         @id @default(uuid())
+  subTopic        SubTopic?      @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  subTopicId      String?
+  question        String?        
   @@unique([subTopicId, question])
-  type           QuestionType
-  DifficultyLevel DifficultyLevel
-  answers        Answer[]
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
+  type            QuestionType
+  difficultyLevel DifficultyLevel
+  answers         Answer[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 }
 
 model Answer {
   id         String     @id @default(uuid())
-  question   Questions? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String?
   answer     String?    @unique
   type       QuestionType

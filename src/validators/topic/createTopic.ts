@@ -1,5 +1,5 @@
 
-import {body} from 'express-validator';
+import { body } from 'express-validator';
 
 export const CreateTopicValidator = [
     body('topic').notEmpty().withMessage('Topic is required'),

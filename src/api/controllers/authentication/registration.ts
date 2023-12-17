@@ -4,11 +4,16 @@ import { JWTEncryptedData, Registration } from "./types";
 import { prisma } from "@/shared/prisma";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import _ from "lodash";
 
 
 export const RegistrationHandler = async (req: Request, res: Response) => {
     try {
         const { email,name,role,password } = req.body as Registration;
+        let userRole = role
+        if(_?.isEmpty(userRole)){
+            userRole = "ADMIN";
+        }
         const user = await prisma.user.findFirst({
             where: { email: { equals: email, mode: "insensitive" }, }
         });
@@ -21,7 +26,7 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
             data: {
                 email,
                 name,
-                role,
+                role:userRole,
                 password: hash
             }
         });
