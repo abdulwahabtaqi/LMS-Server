@@ -1,4 +1,4 @@
-import { UserRole } from "@prisma/client";
+
 
 export interface Login {
     email: string;
@@ -11,6 +11,11 @@ export interface Registration {
     email: string;
     role: UserRole;
     password: string;
+}
+export enum UserRole {
+    ADMIN = "ADMIN",
+    TEACHER = "TEACHER",
+    STUDENT = "STUDENT"
 }
 
 export interface JWTEncryptedData {
