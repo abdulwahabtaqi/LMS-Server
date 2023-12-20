@@ -5,3 +5,4 @@ export * from './subject';
 export * from './topic';
 export * from './subTopic';
 export * from './question';
+export * from './answer';

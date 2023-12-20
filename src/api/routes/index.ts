@@ -9,6 +9,8 @@ import topic from './topic';
 import subTopic from './subTopic';
 import insights from './insights';
 import question from './question';
+import answer from './answer';
+import imports from './imports';
 import { Authentication,Authorization  } from "@/middlewares";
 
 router.use('/auth', auth); 
@@ -19,5 +21,7 @@ router.use('/subject', Authentication,Authorization(["admin"]), subject);
 router.use('/topic', Authentication,Authorization(["admin"]), topic); 
 router.use('/subTopic', Authentication,Authorization(["admin"]), subTopic); 
 router.use('/question', Authentication,Authorization(["admin"]), question); 
+router.use('/answer', Authentication,Authorization(["admin"]), answer); 
+router.use('/imports', Authentication,Authorization(["admin"]), imports); 
 
 export default router;

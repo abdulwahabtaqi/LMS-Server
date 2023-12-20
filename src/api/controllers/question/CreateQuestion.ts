@@ -18,7 +18,7 @@ export const CreateQuestionHandler = async (req: Request, res: Response) => {
         }
         const subTopicExists = await prisma.question.findFirst({
             where: {
-                question: question,
+                question: question?.toLowerCase() as string,
                 subTopicId: subTopicId
             }
         });
@@ -28,7 +28,7 @@ export const CreateQuestionHandler = async (req: Request, res: Response) => {
         const newQuestion = await prisma.question.create({
             data: {
                 difficultyLevel,
-                question,
+                question:question?.toLowerCase() as string,
                 subTopicId,
                 type
             }
