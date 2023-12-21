@@ -8,7 +8,7 @@ import _ from "lodash";
 
 export const FetchSubjectByGradeHandler = async (req: Request, res: Response) => {
     try {
-        const grade = req.params?.grade as string;
+        const grade = req?.params?.grade as string;
         const subject = await prisma.subject.findMany({
             where:{
                 gradeId:grade
@@ -18,7 +18,7 @@ export const FetchSubjectByGradeHandler = async (req: Request, res: Response) =>
                 topics:true
             }
         });
-        if(!subject){
+        if(_?.isEmpty(subject)){
             return ApiResponse(false, "Subject Not Found", null, 404, res);
         }
         return ApiResponse(true, "Subject Fetched Successfully", subject, 200, res);

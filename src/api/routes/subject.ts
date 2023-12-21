@@ -13,7 +13,7 @@ router.put('/update/:id',UpdateSubjectValidator,validationMiddleware,UpdateSubje
 router.get('/fetch',FetchSubjectsHandler);
 router.get('/fetchById/:id',FetchSubjectByIdHandler);
 router.get('/fetchByName/:name',FetchSubjectBySubjectNameHandler);
-router.get('/fetchByGrade/:grade',FetchSubjectByGradeHandler);
+router.get('/fetchByGradeId/:id',FetchSubjectByGradeHandler);
 router.delete('/deleteById/:id',DeleteSubjectHandler);
 
 export default router;

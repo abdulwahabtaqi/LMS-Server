@@ -11,7 +11,7 @@ export const CsvImportHandler = (req:Request,res:Response) => {
     fs.createReadStream(buffer as string)
         .pipe(csvParser())
         .on('data', (row) => {
-            csvData.push(row);
+            csvData?.push(row);
         })
         .on('end', () => {
             console.log(csvData);

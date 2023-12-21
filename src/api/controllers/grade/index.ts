@@ -5,3 +5,4 @@ export * from './fetchGradeByGradeName';
 export * from './fetchGradeBySchoolType';
 export * from './fetchGradeById';
 export * from './fetchGrades';
+export * from './fetchGradeBySchoolId';

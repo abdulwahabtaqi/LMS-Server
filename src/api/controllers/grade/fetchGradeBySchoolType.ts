@@ -10,15 +10,17 @@ export const FetchGradeBySchoolTypeHandler = async (req: Request, res: Response)
     try {
         const type = req.params?.type as string;
         const grade = await prisma.grade.findMany({
-            where: { school:{
-                type:type?.toLowerCase() },
+            where: {
+                school: {
+                    type: type?.toLowerCase()
+                },
             },
-            include:{
-                school:true,
-                subjects:true
+            include: {
+                school: true,
+                subjects: true
             }
         });
-        if (_.isEmpty(grade) ) {
+        if (_?.isEmpty(grade)) {
             return ApiResponse(false, "Grade not found", null, 404, res);
         }
         return ApiResponse(true, "Grade found", grade, 200, res);

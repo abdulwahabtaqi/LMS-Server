@@ -16,7 +16,7 @@ export const FetchGradeByIdHandler = async (req: Request, res: Response) => {
                 subjects:true
             }
         });
-        if (_.isEmpty(grade) ) {
+        if (_?.isEmpty(grade) ) {
             return ApiResponse(false, "Grade not found", null, 404, res);
         }
         return ApiResponse(true, "Grade found", grade, 200, res);
