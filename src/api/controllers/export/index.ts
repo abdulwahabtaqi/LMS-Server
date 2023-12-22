@@ -1,1 +1,1 @@
-export * from "./exportPaper";
+export * from "./fetchQuestionsForImport";

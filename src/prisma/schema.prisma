@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -32,13 +31,14 @@ enum DifficultyLevel {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String?  @unique
-  password  String?
-  name      String?
-  role      UserRole?  @default(TEACHER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String             @id @default(uuid())
+  email            String?            @unique
+  password         String?
+  name             String?
+  role             UserRole?          @default(TEACHER)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  reserved Reserved[]
 }
 
 model School {
@@ -54,10 +54,11 @@ model Grade {
   school    School?   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   schoolId  String?
   grade     String?
-  @@unique([schoolId, grade])
   subjects  Subject[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@unique([schoolId, grade])
 }
 
 model Subject {
@@ -65,54 +66,69 @@ model Subject {
   grade     Grade?   @relation(fields: [gradeId], references: [id], onDelete: Cascade)
   gradeId   String?
   subject   String?
-  @@unique([gradeId, subject])
   topics    Topic[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([gradeId, subject])
 }
 
 model Topic {
   id        String     @id @default(uuid())
   subject   Subject?   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
   subjectId String?
-  topic     String?    
-  @@unique([subjectId, topic])
+  topic     String?
   subTopics SubTopic[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+
+  @@unique([subjectId, topic])
 }
 
 model SubTopic {
-  id        String      @id @default(uuid())
-  topic     Topic?      @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  id        String     @id @default(uuid())
+  topic     Topic?     @relation(fields: [topicId], references: [id], onDelete: Cascade)
   topicId   String?
-  subTopic  String?  
-  @@unique([topicId, subTopic])
+  subTopic  String?
   questions Question[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([topicId, subTopic])
 }
 
 model Question {
-  id              String         @id @default(uuid())
-  subTopic        SubTopic?      @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  id              String          @id @default(uuid())
+  subTopic        SubTopic?       @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
   subTopicId      String?
-  question        String?        
-  @@unique([subTopicId, question])
+  question        String?
   type            QuestionType
   difficultyLevel DifficultyLevel
   answers         Answer[]
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@unique([subTopicId, question])
 }
 
 model Answer {
-  id         String     @id @default(uuid())
-  question   Question?  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  id         String       @id @default(uuid())
+  question   Question?    @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String?
-  answer     String?    @unique
+  answer     String?      @unique
   type       QuestionType
   isCorrect  Boolean
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
+
+model Reserved {
+  id        String   @id @default(uuid())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?
+  questionsId String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+

@@ -11,6 +11,7 @@ import insights from './insights';
 import question from './question';
 import answer from './answer';
 import imports from './imports';
+import exporter from './exports';
 import { Authentication,Authorization  } from "@/middlewares";
 
 router.use('/auth', auth); 
@@ -23,5 +24,6 @@ router.use('/subTopic', Authentication,Authorization(["admin"]), subTopic);
 router.use('/question', Authentication,Authorization(["admin"]), question); 
 router.use('/answer', Authentication,Authorization(["admin"]), answer); 
 router.use('/imports', Authentication,Authorization(["admin"]), imports); 
+router.use('/exporter', Authentication,Authorization(["admin"]), exporter); 
 
 export default router;
