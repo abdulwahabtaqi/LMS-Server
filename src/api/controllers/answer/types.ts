@@ -2,7 +2,7 @@ export interface Answer {
      questionId:string;
      answer:string;
      type:AnswerType;
-     isCorrect:boolean;
+     isCorrect:string;
      difficultyLevel:QuestionDifficultyLevel;
 }
 

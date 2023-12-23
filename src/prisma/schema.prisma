@@ -103,6 +103,7 @@ model Question {
   subTopicId      String?
   question        String?
   type            QuestionType
+  marks           Int
   difficultyLevel DifficultyLevel
   answers         Answer[]
   createdAt       DateTime        @default(now())

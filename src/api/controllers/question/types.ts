@@ -1,6 +1,7 @@
 export interface Question {
      subTopicId:string;
      question:string;
+     marks:number;
      type:QuestionType;
      difficultyLevel:QuestionDifficultyLevel;
 }

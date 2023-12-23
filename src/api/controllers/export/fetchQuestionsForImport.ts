@@ -15,11 +15,6 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             longQuestionQuantity, mcqDifficultyLevel, mcqQuestionQuantity,
             shortQuestionDifficultyLevel, shortQuestionQuantity
         } = req?.body as ExportPaperRequest;
-        const reservedQuestions = prisma.reserved.findMany({
-            where: {
-                userId: req?.user?.id
-            }
-        })
         if (!(MCQVisible) && !(longQuestionVisible) && !(shortQuestionVisible)) {
             return ApiResponse(false, "At least one question must be selected", null, 400, res);
         }
@@ -43,7 +38,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 orderBy: {
                     createdAt: 'asc'
                 },
-                take: mcqQuestionQuantity,
+                take: parseInt(mcqQuestionQuantity.toString()),
             });
         }
         if (shortQuestionVisible) {
@@ -59,7 +54,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 include: {
                     answers: true
                 },
-                take: shortQuestionQuantity,
+                take: parseInt(shortQuestionQuantity?.toString()),
             });
         }
         if (longQuestionVisible) {
@@ -75,12 +70,13 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 include: {
                     answers: true
                 },
-                take: longQuestionQuantity,
+                take: parseInt(longQuestionQuantity?.toString()),
             });
         }
-        return ApiResponse(true, "Paper Exported Successfully", { mcqQuestion, shortQuestion, longQuestion }, 200, res);
+        return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion }, 200, res);
     }
     catch (error) {
+        console.log(error?.message);
         console.log("ExportPaperHandler::error", JSON?.stringify(error));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }

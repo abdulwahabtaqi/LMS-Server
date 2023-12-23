@@ -7,7 +7,7 @@ import { Question } from "./types";
 
 export const CreateQuestionHandler = async (req: Request, res: Response) => {
     try {
-        const { difficultyLevel, question, subTopicId, type } = req?.body as Question;
+        const { difficultyLevel, question, subTopicId, type,marks  } = req?.body as Question;
         const subTopic = await prisma.subTopic.findUnique({
             where: {
                 id: subTopicId
@@ -30,7 +30,8 @@ export const CreateQuestionHandler = async (req: Request, res: Response) => {
                 difficultyLevel,
                 question:question?.toLowerCase() as string,
                 subTopicId,
-                type
+                type,
+                marks:parseInt(marks?.toString())
             }
         });
         return ApiResponse(true, "Question Created Successfully", newQuestion, 201, res);

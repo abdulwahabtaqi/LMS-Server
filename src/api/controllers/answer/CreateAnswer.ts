@@ -27,7 +27,7 @@ export const CreateAnswerHandler = async (req: Request, res: Response) => {
         }
         const newAnswer = await prisma.answer.create({
            data:{
-            isCorrect,
+            isCorrect:isCorrect==="false"?false:true,
             type: question?.type,
             questionId,
             answer:answer?.toLowerCase() as string,

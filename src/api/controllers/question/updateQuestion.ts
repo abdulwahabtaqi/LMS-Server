@@ -10,7 +10,7 @@ import { Question } from "./types";
 export const UpdateQuestionHandler = async (req: Request, res: Response) => {
     try {
         const id = req?.params?.id as string;
-        const {difficultyLevel, question, subTopicId ,type} = req?.body as Question;
+        const {difficultyLevel, question, subTopicId ,type, marks} = req?.body as Question;
         const questionExists = await prisma.question.findUnique({
             where:{
                 id:id
@@ -27,7 +27,8 @@ export const UpdateQuestionHandler = async (req: Request, res: Response) => {
                 difficultyLevel,
                 question,
                 subTopicId,
-                type
+                type,
+                marks:parseInt(marks?.toString())
             }
         });
         return ApiResponse(true, "Question Updated Successfully", updatedQuestion, 200, res);

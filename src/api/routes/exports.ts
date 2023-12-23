@@ -4,9 +4,8 @@ import multer from 'multer';
 
 import { FetchQuestionsForExportHandler } from '../controllers/export';
 
-const storage = multer.memoryStorage();
 
-router.get('/get/questions', FetchQuestionsForExportHandler );
+router.post('/fetch/questions', FetchQuestionsForExportHandler );
 
 
 

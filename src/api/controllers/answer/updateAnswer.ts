@@ -33,7 +33,7 @@ export const UpdateAnswerHandler = async (req: Request, res: Response) => {
                 id:id
             },
             data:{
-                isCorrect,
+                isCorrect:isCorrect==="false"?false:true,
                 type: question?.type,
                 questionId,
                 answer:answer?.toLowerCase() as string,
