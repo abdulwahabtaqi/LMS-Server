@@ -4,6 +4,7 @@ export interface Question {
      marks:number;
      type:QuestionType;
      difficultyLevel:QuestionDifficultyLevel;
+     importId:string;
 }
 
 export enum QuestionType {

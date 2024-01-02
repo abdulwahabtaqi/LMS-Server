@@ -1,0 +1,22 @@
+Type,DifficultyLevel,Question,Answer,IsCorrect,MCQID,Marks
+MCQ,MEDIUM,which is the right promise in js ,pending,TRUE,5569,4
+MCQ,MEDIUM,which is the right promise in js ,extreme,FALSE,5569,4
+MCQ,MEDIUM,which is the right promise in js ,ordinary,FALSE,5569,4
+MCQ,MEDIUM,which is the right promise in js ,normal,FALSE,5569,4
+SHORT,EASY,what is js,Js means JavaScript,,,4
+LONG,HARD,right way to use promise,Js means JavaScript,,,4
+MCQ,MEDIUM,right way to use promise,pending,TRUE,5555,4
+MCQ,MEDIUM,right way to use promise,extreme,FALSE,5555,4
+MCQ,MEDIUM,right way to use promise,ordinary,FALSE,5555,4
+MCQ,MEDIUM,right way to use promise,normal,FALSE,5555,4
+MCQ,MEDIUM,injectors are,pending,TRUE,6666,4
+MCQ,MEDIUM,injectors are,extreme,FALSE,6666,4
+MCQ,MEDIUM,injectors are,ordinary,FALSE,6666,
+MCQ,MEDIUM,injectors are,normal,FALSE,6666,44
+MCQ,MEDIUM,ruotine can be,pending,TRUE,7878,4
+MCQ,MEDIUM,ruotine can be,extreme,FALSE,7878,4
+MCQ,MEDIUM,ruotine can be,ordinary,FALSE,7878,4
+MCQ,MEDIUM,ruotine can be,normal,FALSE,7878,4
+SHORT,EASY,what is java,java is programing language,,,4
+LONG,HARD,right way to use java,right way is good approuch,,,4
+SHORT,EASY,what are web hooks,web hook are updated from any where,,,4

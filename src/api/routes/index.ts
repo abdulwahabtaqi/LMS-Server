@@ -23,7 +23,7 @@ router.use('/topic', Authentication,Authorization(["admin"]), topic);
 router.use('/subTopic', Authentication,Authorization(["admin"]), subTopic); 
 router.use('/question', Authentication,Authorization(["admin"]), question); 
 router.use('/answer', Authentication,Authorization(["admin"]), answer); 
-router.use('/imports', Authentication,Authorization(["admin"]), imports); 
+router.use('/imports',  imports); 
 router.use('/exporter', Authentication,Authorization(["admin"]), exporter); 
 
 export default router;

@@ -1,20 +1,24 @@
-import { NextFunction, Request, Response, Router } from 'express';
-const router = Router();
+import { Request, Response, Router } from 'express';
 import multer from 'multer';
-import { ApiResponse } from '@/shared';
+import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
 import { CsvImportHandler } from '../controllers/imports';
+const router = Router();
 
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'src/uploads/csvTempStorage');
+  },
+  filename: function (req, file, cb) {
+    const uniqueFilename = uuidv4() + path.extname(file?.originalname);
+    cb(null, uniqueFilename);
+  }
+});
+
 const upload = multer({ storage: storage });
 
-router.post('/upload', upload.single('file'),(req:Request,res:Response, next:NextFunction)=>{
- if(!req.file){
-    return ApiResponse(false, "Please Upload a File", null, 400, res);
- }
- return next();
-}, CsvImportHandler );
-
-
+router.post('/csvImport', upload?.single('file'), CsvImportHandler);
 
 export default router;
+
 

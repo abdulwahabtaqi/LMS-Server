@@ -106,6 +106,7 @@ model Question {
   marks           Int
   difficultyLevel DifficultyLevel
   answers         Answer[]
+  importId        String
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 
@@ -118,6 +119,7 @@ model Answer {
   questionId String?
   answer     String?      @unique
   type       QuestionType
+  importId   String
   isCorrect  Boolean
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
