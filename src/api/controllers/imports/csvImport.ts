@@ -1,7 +1,7 @@
 import csvParser from 'csv-parser';
 import { Request, Response } from 'express';
 import fs from 'fs';
-import { CsvFileInput, FileInput } from './types';
+import { CreateMCQsInput, CsvFileInput, FileInput } from './types';
 import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
@@ -68,5 +68,23 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
         }
     });
     
-  return {MCQsQuestions, MCQsAnswers};
+  return {MCQsQuestions, MCQsAnswers} as CreateMCQsInput;
 }
+
+export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+    const ShortQuestions: Question[] = [];
+    csvData?.filter(x => x?.Type === "SHORT")?.forEach(x => {
+        ShortQuestions?.push({
+            importId: uuidv4(),
+            subTopicId: subTopicId,
+            marks: parseInt(x?.Marks),
+            question: x?.Question,
+            difficultyLevel: x?.DifficultyLevel,
+            type: x?.Type,
+        } as Question);
+        
+    });
+    return ShortQuestions;
+}
+
+

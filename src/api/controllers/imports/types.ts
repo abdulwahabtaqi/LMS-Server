@@ -1,3 +1,6 @@
+import { Answer } from "../answer/types";
+import { Question } from "../question/types";
+
 export interface FileInput {
     fieldname: string;
     originalname: string;
@@ -18,3 +21,11 @@ export interface CsvFileInput {
     Marks: string;
 }
 
+export interface CreateMCQsInput {
+    MCQsQuestions: Question[];
+    MCQsAnswers: Answer[];
+}
+export interface CreateMCQsResponse {
+    status: boolean;
+    message: string;
+}

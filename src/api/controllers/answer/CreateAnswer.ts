@@ -31,6 +31,7 @@ export const CreateAnswerHandler = async (req: Request, res: Response) => {
             type: question?.type,
             questionId,
             answer:answer?.toLowerCase() as string,
+            importId:question?.importId
            }
         });
         return ApiResponse(true, "Answer Created Successfully", newAnswer, 201, res);

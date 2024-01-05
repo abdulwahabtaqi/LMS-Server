@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { prisma } from "@/shared/prisma";
 import _ from "lodash";
 import { Question } from "./types";
-
+import { v4 as uuidv4 } from 'uuid';
 
 export const CreateQuestionHandler = async (req: Request, res: Response) => {
     try {
@@ -31,7 +31,8 @@ export const CreateQuestionHandler = async (req: Request, res: Response) => {
                 question:question?.toLowerCase() as string,
                 subTopicId,
                 type,
-                marks:parseInt(marks?.toString())
+                marks:parseInt(marks?.toString()),
+                importId:uuidv4()
             }
         });
         return ApiResponse(true, "Question Created Successfully", newQuestion, 201, res);
