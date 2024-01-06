@@ -1,7 +1,7 @@
 import csvParser from 'csv-parser';
 import { Request, Response } from 'express';
 import fs from 'fs';
-import { CreateMCQsInput, CsvFileInput, FileInput } from './types';
+import { CreateLongQuestionsInput, CreateMCQsInput, CreateShortQuestionsInput, CsvFileInput, FileInput } from './types';
 import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
@@ -23,6 +23,8 @@ export const CsvImportHandler = (req: Request, res: Response) => {
       })
       ?.on('end', () => {
         const mcq = CreateMCQs(csvData, subTopicId);
+        const shortQuestions = createShortQuestions(csvData, subTopicId);
+        const longQuestions = createLongQuestions(csvData, subTopicId);
         console.log("mcq", mcq);
         // console.log("csvData======", csvData);
       })
@@ -73,18 +75,45 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
 
 export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
+    const ShortAnswers: Answer[] = [];
+    const ImportUniqueId = uuidv4();
     csvData?.filter(x => x?.Type === "SHORT")?.forEach(x => {
         ShortQuestions?.push({
-            importId: uuidv4(),
+            importId: ImportUniqueId,
             subTopicId: subTopicId,
             marks: parseInt(x?.Marks),
             question: x?.Question,
             difficultyLevel: x?.DifficultyLevel,
             type: x?.Type,
         } as Question);
-        
+        ShortAnswers?.push({
+            answer: x?.Answer,
+            type: x?.Type,
+            importId: ImportUniqueId,
+        } as Answer);
     });
-    return ShortQuestions;
+    return {ShortQuestions, ShortAnswers} as CreateShortQuestionsInput;
+}
+export const createLongQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+    const LongQuestions: Question[] = [];
+    const LongAnswers: Answer[] = [];
+    const ImportUniqueId = uuidv4();
+    csvData?.filter(x => x?.Type === "LONG")?.forEach(x => {
+        LongQuestions?.push({
+            importId: ImportUniqueId,
+            subTopicId: subTopicId,
+            marks: parseInt(x?.Marks),
+            question: x?.Question,
+            difficultyLevel: x?.DifficultyLevel,
+            type: x?.Type,
+        } as Question);
+        LongAnswers?.push({
+            answer: x?.Answer,
+            type: x?.Type,
+            importId: ImportUniqueId,
+        } as Answer);
+    });
+    return {LongQuestions, LongAnswers} as CreateLongQuestionsInput;
 }
 
 

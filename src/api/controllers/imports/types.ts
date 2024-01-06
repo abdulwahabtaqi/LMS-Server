@@ -29,3 +29,21 @@ export interface CreateMCQsResponse {
     status: boolean;
     message: string;
 }
+
+export interface CreateShortQuestionsInput {
+    ShortQuestions: Question[];
+    ShortAnswers: Answer[];
+}
+export interface CreateShortQuestionsResponse {
+    status: boolean;
+    message: string;
+}
+
+export interface CreateLongQuestionsInput {
+    LongQuestions: Question[];
+    LongAnswers: Answer[];
+}
+export interface CreateLongQuestionsResponse {
+    status: boolean;
+    message: string;
+}
