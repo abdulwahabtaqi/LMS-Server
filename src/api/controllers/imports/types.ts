@@ -25,25 +25,22 @@ export interface CreateMCQsInput {
     MCQsQuestions: Question[];
     MCQsAnswers: Answer[];
 }
-export interface CreateMCQsResponse {
+export interface CreateQuestionsResponse {
     status: boolean;
     message: string;
+    failed:FailedQuestionsAnswers
 }
 
+export interface FailedQuestionsAnswers {
+    question: Question[];
+    answer: Answer[];
+}
 export interface CreateShortQuestionsInput {
     ShortQuestions: Question[];
     ShortAnswers: Answer[];
-}
-export interface CreateShortQuestionsResponse {
-    status: boolean;
-    message: string;
 }
 
 export interface CreateLongQuestionsInput {
     LongQuestions: Question[];
     LongAnswers: Answer[];
-}
-export interface CreateLongQuestionsResponse {
-    status: boolean;
-    message: string;
 }

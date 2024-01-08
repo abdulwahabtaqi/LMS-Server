@@ -5,6 +5,7 @@ import { CreateLongQuestionsInput, CreateMCQsInput, CreateShortQuestionsInput, C
 import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
+import { createLongQuestion, createMCQsQuestion, createShortQuestion } from './mcqManagement';
 export const CsvImportHandler = (req: Request, res: Response) => {
   try {
     const { subTopicId } = req?.body as { subTopicId: string };
@@ -21,23 +22,49 @@ export const CsvImportHandler = (req: Request, res: Response) => {
       ?.on('data', (row) => {
         csvData.push(row as CsvFileInput);
       })
-      ?.on('end', () => {
+      ?.on('end', async () => {
         const mcq = CreateMCQs(csvData, subTopicId);
+        await mccDbCreation(mcq);
         const shortQuestions = createShortQuestions(csvData, subTopicId);
+        await shortDbCreation(shortQuestions);
         const longQuestions = createLongQuestions(csvData, subTopicId);
-        console.log("mcq", mcq);
-        // console.log("csvData======", csvData);
+        await longDbCreation(longQuestions);
       })
       ?.on('error', (error) => {
         console.error(error);
       });
-      
-      return res.status(200).json({ status: true, message: 'Upload successful', data: csvData });
+      deleteFile(path);
+      return res.status(200).json({ status: true, message: 'Import Completed', data: csvData });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ status: false, message: 'Internal server error' });
   }
 };
+
+
+//  async await file delete function
+const deleteFile = async (path: string) => {
+    try {
+        await fs.unlink(path, (err) => {
+            if (err) {
+                console.error(err)
+                return
+            }
+        })
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const mccDbCreation = async (data: CreateMCQsInput) => {
+         await createMCQsQuestion(data);
+}
+const shortDbCreation = async (data: CreateShortQuestionsInput) => {
+    await createShortQuestion(data);
+}
+const longDbCreation = async (data: CreateLongQuestionsInput) => {
+    await createLongQuestion(data);
+}
 
 
 export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
@@ -72,12 +99,11 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
     
   return {MCQsQuestions, MCQsAnswers} as CreateMCQsInput;
 }
-
 export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
-    const ImportUniqueId = uuidv4();
     csvData?.filter(x => x?.Type === "SHORT")?.forEach(x => {
+      const ImportUniqueId = uuidv4() + "-" + Math.random();
         ShortQuestions?.push({
             importId: ImportUniqueId,
             subTopicId: subTopicId,
@@ -97,8 +123,8 @@ export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string
 export const createLongQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
     const LongQuestions: Question[] = [];
     const LongAnswers: Answer[] = [];
-    const ImportUniqueId = uuidv4();
     csvData?.filter(x => x?.Type === "LONG")?.forEach(x => {
+      const ImportUniqueId = uuidv4();
         LongQuestions?.push({
             importId: ImportUniqueId,
             subTopicId: subTopicId,
