@@ -17,13 +17,19 @@ export interface CsvFileInput {
     Question: string;
     Answer: string;
     IsCorrect: string;
-    MCQID: string;
+    QuestionId: string;
     Marks: string;
+    Counter: string;
+    AnswerImage: string;
 }
 
 export interface CreateMCQsInput {
     MCQsQuestions: Question[];
     MCQsAnswers: Answer[];
+}
+export interface CreateMultipleShortInput {
+    ShortQuestions: Question[];
+    ShortAnswers: Answer[];
 }
 export interface CreateQuestionsResponse {
     status: boolean;
