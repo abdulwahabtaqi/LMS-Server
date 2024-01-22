@@ -5,6 +5,7 @@ export interface Answer {
      isCorrect:string;
      difficultyLevel:QuestionDifficultyLevel;
      importId:string;
+     answerImage:string;
 }
 
 export enum AnswerType {

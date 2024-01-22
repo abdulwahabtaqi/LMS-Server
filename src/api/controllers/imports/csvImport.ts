@@ -1,7 +1,7 @@
 import csvParser from 'csv-parser';
 import { Request, Response } from 'express';
 import fs from 'fs';
-import { CreateLongQuestionsInput, CreateMCQsInput, CreateShortQuestionsInput, CsvFileInput, FileInput } from './types';
+import { CreateLongQuestionsInput, CreateMCQsInput, CreateMultipleShortInput, CreateShortQuestionsInput, CsvFileInput, FileInput } from './types';
 import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
@@ -67,13 +67,47 @@ const longDbCreation = async (data: CreateLongQuestionsInput) => {
 }
 
 
+export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+    const ShortQuestions: Question[] = [];
+    const ShortAnswers: Answer[] = [];
+    const processedMultipleShortQuestionIds = new Set<string>();
+    csvData?.filter(x => x?.Type === "MULTIPLESHORT")?.forEach(x => {
+        const multipleSHortQuestionId = x?.QuestionId; 
+        if (!processedMultipleShortQuestionIds?.has(multipleSHortQuestionId)) {
+            const question = {
+                importId: uuidv4(),
+                subTopicId: subTopicId,
+                marks: parseInt(x?.Marks),
+                question: x?.Question,
+                difficultyLevel: x?.DifficultyLevel,
+                type: x?.Type,
+                answerCount: parseInt(x?.Counter),
+            } as Question;
+            ShortQuestions.push(question);
+            csvData?.filter(x => x?.Type === "MCQ")?.forEach(y=>{
+                if(y?.QuestionId === multipleSHortQuestionId){
+                    ShortAnswers?.push({
+                        answer: y?.Answer,
+                        isCorrect: y?.IsCorrect,
+                        type: y?.Type,
+                        answerImage: y?.AnswerImage,
+                        importId: question?.importId,
+                    } as Answer);
+                }
+            })
+            processedMultipleShortQuestionIds.add(multipleSHortQuestionId);
+        }
+    });
+    
+  return {ShortQuestions, ShortAnswers} as CreateMultipleShortInput;
+}
 export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
     const MCQsQuestions: Question[] = [];
     const MCQsAnswers: Answer[] = [];
     const processedMCQIDs = new Set<string>();
     csvData?.filter(x => x?.Type === "MCQ")?.forEach(x => {
-        const MCQID = x?.MCQID; 
-        if (!processedMCQIDs.has(MCQID)) {
+        const MCQID = x?.QuestionId; 
+        if (!processedMCQIDs?.has(MCQID)) {
             const question = {
                 importId: uuidv4(),
                 subTopicId: subTopicId,
@@ -84,7 +118,7 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
             } as Question;
             MCQsQuestions.push(question);
             csvData?.filter(x => x?.Type === "MCQ")?.forEach(y=>{
-                if(y?.MCQID === MCQID){
+                if(y?.QuestionId === MCQID){
                     MCQsAnswers?.push({
                         answer: y?.Answer,
                         isCorrect: y?.IsCorrect,

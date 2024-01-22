@@ -12,7 +12,7 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
         const { email,name,role,password } = req.body as Registration;
         let userRole = role
         if(_?.isEmpty(userRole)){
-            userRole = UserRole?.ADMIN;
+            userRole = UserRole?.TEACHER;
         }
         const user = await prisma.user.findFirst({
             where: { email: { equals: email, mode: "insensitive" }, }
