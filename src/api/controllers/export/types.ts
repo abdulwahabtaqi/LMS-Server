@@ -19,6 +19,8 @@ export interface ExportPaperRequest {
 export enum QuestionType {
     MCQ = "MCQ",
     SHORT = "SHORT",
+    MULTIPLSHORT = "MULTIPLSHORT",
+    FILLINTHEBLANK = "FILLINTHEBLANK",
     LONG = "LONG"
 }
 

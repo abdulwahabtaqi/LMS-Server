@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     cb(null, 'src/uploads/csvTempStorage');
   },
   filename: function (req, file, cb) {
-    const uniqueFilename = uuidv4() + path.extname(file?.originalname);
+    const uniqueFilename = uuidv4() + path?.extname(file?.originalname);
     cb(null, uniqueFilename);
   }
 });

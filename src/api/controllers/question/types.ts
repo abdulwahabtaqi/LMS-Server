@@ -6,6 +6,8 @@ export interface Question {
      difficultyLevel:QuestionDifficultyLevel;
      answerCount:number;
      importId:string;
+     questionImage:string;
+     mcqImage:boolean;
 }
 
 export enum QuestionType {
@@ -13,7 +15,8 @@ export enum QuestionType {
      LONG = "LONG",
      MULTIPLSHORT = "MULTIPLSHORT",
      MULTIPLLONG = "MULTIPLLONG",
-     SHORT = "SHORT"
+     SHORT = "SHORT",
+     FILLINTHEBLANK = "FILLINTHEBLANK"
 } 
 export enum QuestionDifficultyLevel {
      EASY = "EASY",

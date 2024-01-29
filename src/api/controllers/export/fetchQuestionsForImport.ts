@@ -1,9 +1,10 @@
 import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
-import { ExportPaperRequest, QuestionType } from "./types";
+import { ExportPaperRequest } from "./types";
 import _ from "lodash";
 import { prisma } from "@/shared/prisma";
 import { AuthenticatedRequest } from "@/middlewares/types";
+import { QuestionType } from "@prisma/client";
 
 
 
@@ -45,7 +46,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             shortQuestion = await prisma.question.findMany({
                 where: {
                     subTopicId: subTopicId,
-                    type: QuestionType.SHORT,
+                    type: {
+                        in:[QuestionType.FILLINTHEBLANK,QuestionType.MULTIPLSHORT, QuestionType.FILLINTHEBLANK,QuestionType.SHORT]
+                    },
                     difficultyLevel: shortQuestionDifficultyLevel,
                     id: {
                         notIn: usedQuestions
@@ -81,3 +84,17 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }
+
+// const reservedQuestions = (questionId:string[], userId:string) =>{
+//    try {
+//      const reservedQuestion  = prisma.reserved.create({
+//         data:{
+
+//         }
+//      });
+//    } catch (error) {
+//         console.log(error?.message);
+//         console.log("ExportPaperHandler::error", JSON?.stringify(error));
+//         return ApiResponse(false, "Something Went Wrong", error, 500, res);
+//     }
+// }

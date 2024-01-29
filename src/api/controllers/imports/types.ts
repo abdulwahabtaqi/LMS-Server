@@ -21,13 +21,23 @@ export interface CsvFileInput {
     Marks: string;
     Counter: string;
     AnswerImage: string;
+    QuestionImage: string;
+    IsMcqQuestionImage:string;
 }
 
 export interface CreateMCQsInput {
     MCQsQuestions: Question[];
     MCQsAnswers: Answer[];
 }
+export interface CreateSequenceInput {
+    SequenceQuestions: Question[];
+    SequenceAnswers: Answer[];
+}
 export interface CreateMultipleShortInput {
+    ShortQuestions: Question[];
+    ShortAnswers: Answer[];
+}
+export interface CreateFillInBlankInput {
     ShortQuestions: Question[];
     ShortAnswers: Answer[];
 }
