@@ -7,6 +7,7 @@ export interface Answer {
      importId:string;
      sequenceNo:number;
      answerImage:string;
+     additional:string;
 }
 
 export enum AnswerType {

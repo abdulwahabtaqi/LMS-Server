@@ -1,6 +1,6 @@
 import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
-import { ExportPaperRequest } from "./types";
+import { ExportPaperRequest, ReservedQuestionAsPractice } from "./types";
 import _ from "lodash";
 import { prisma } from "@/shared/prisma";
 import { AuthenticatedRequest } from "@/middlewares/types";
@@ -16,7 +16,8 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             longQuestionQuantity, mcqDifficultyLevel, mcqQuestionQuantity,
             shortQuestionDifficultyLevel, shortQuestionQuantity, fillInTheBlanksQuantity, fillInTheBlanksDifficultyLevel, fillInTheBlanksVisible,
             multiFillInTheBlanksQuantity, multiFillInTheBlanksDifficultyLevel, multiFillInTheBlanksVisible, multipleShortQuantity, multipleShortDifficultyLevel, multipleShortVisible,
-            multipleTrueFalseQuantity, multipleTrueFalseDifficultyLevel, multipleTrueFalseVisible, sequenceQuantity, sequenceDifficultyLevel, sequenceVisible, isPracticeMode
+            multipleTrueFalseQuantity, multipleTrueFalseDifficultyLevel, multipleTrueFalseVisible, sequenceQuantity, sequenceDifficultyLevel, sequenceVisible, isPracticeMode,
+            multipleQuestionV2DifficultyLevel, multipleQuestionV2Quantity, multipleQuestionV2Visible
         } = req?.body as ExportPaperRequest;
         if (_?.isUndefined(isPracticeMode)) {
             return ApiResponse(false, "isPracticeMode is required", null, 400, res);
@@ -32,6 +33,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
         let multipleShortQuestion;
         let multipleTrueFalseQuestion;
         let sequenceQuestion;
+        let multipleShortQuestionV2;
         let usedQuestions = [] as string[];
         if (isPracticeMode) {
             usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
@@ -167,7 +169,23 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 take: parseInt(sequenceQuantity?.toString()),
             });
         }
-        return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion, fillInTheBlanksQuestion, multiFillInTheBlanksQuestion, multipleShortQuestion, multipleTrueFalseQuestion, sequenceQuestion }, 200, res);
+        if (multipleQuestionV2Visible) {
+            multipleShortQuestionV2 = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.MULTIPLSHORTV2,
+                    difficultyLevel: multipleQuestionV2DifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(multipleQuestionV2Quantity?.toString()),
+            });
+        }
+        return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion, fillInTheBlanksQuestion, multiFillInTheBlanksQuestion, multipleShortQuestion, multipleTrueFalseQuestion, sequenceQuestion, multipleShortQuestionV2 }, 200, res);
     }
     catch (error) {
         console.log(error?.message);
@@ -195,17 +213,21 @@ const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
     }
 }
 
-const reserveQuestions = (questionsIds: string[], userId: string, type: string): void => {
+export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: Response) => {
     try {
-        const reserveQuestions = prisma.exportedQuestion.createMany({
-            data: questionsIds.map((id) => ({
-                questionsId: id,
-                userId: userId,
-                exportType: type === "PAPER" ? ExportTypes.PAPER : ExportTypes.PRACTICE
-            }))
+        const { questionId  } = req?.body as ReservedQuestionAsPractice;
+        const reserveQuestions = await prisma.exportedQuestion.createMany({
+            data: questionId?.map((question) => {
+                return {
+                    userId: req?.user?.id,
+                    questionsId: question,
+                    exportType: ExportTypes.PRACTICE
+                }
+            })
         });
+       return ApiResponse(true, "Questions reserved successfully", reserveQuestions, 200, res);
     } catch (error) {
-        console.log(error?.message);
-        console.log("reserveQuestions::error", JSON?.stringify(error));
+        console.log("reserveQuestionAsPractice::error", JSON?.stringify(error?.message));
+        return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }

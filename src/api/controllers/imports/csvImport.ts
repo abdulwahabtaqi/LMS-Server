@@ -35,6 +35,8 @@ export const CsvImportHandler = (req: Request, res: Response) => {
                 await multipleShortDbCreation(fillInTheBlanksQuestion);
                 const multiFillInTheBlanksQuestion = CreateMultiFillInTheBlankQuestions(csvData, subTopicId);
                 await multipleShortDbCreation(multiFillInTheBlanksQuestion);
+                const multipleShortV2 = CreateMultipleShortV2Questions(csvData, subTopicId);
+                await multipleShortDbCreation(multipleShortV2);
                 // const shortQuestions = createShortQuestions(csvData, subTopicId);
                 // await shortDbCreation(shortQuestions);
                 // const longQuestions = createLongQuestions(csvData, subTopicId);
@@ -175,6 +177,42 @@ export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId
                         type: y?.Type,
                         answerImage: y?.AnswerImage,
                         importId: question?.importId,
+                    } as Answer);
+                }
+            })
+            processedMultipleShortQuestionIds?.add(multipleSHortQuestionId);
+        }
+    });
+
+    return { ShortQuestions, ShortAnswers } as CreateMultipleShortInput;
+}
+export const CreateMultipleShortV2Questions = (csvData: CsvFileInput[], subTopicId: string) => {
+    const ShortQuestions: Question[] = [];
+    const ShortAnswers: Answer[] = [];
+    const processedMultipleShortQuestionIds = new Set<string>();
+    csvData?.filter(x => x?.Type === "MULTIPLSHORTV2")?.forEach(x => {
+        const multipleSHortQuestionId = x?.QuestionId;
+        if (!processedMultipleShortQuestionIds?.has(multipleSHortQuestionId)) {
+            const question = {
+                importId: uuidv4(),
+                subTopicId: subTopicId,
+                marks: parseInt(x?.Marks),
+                question: x?.Question,
+                difficultyLevel: x?.DifficultyLevel,
+                type: x?.Type,
+                answerCount:  0,
+                questionImage: x?.QuestionImage,
+            } as Question;
+            ShortQuestions?.push(question);
+            csvData?.filter(x => x?.Type === "MULTIPLSHORTV2")?.forEach(y => {
+                if (y?.QuestionId === multipleSHortQuestionId) {
+                    ShortAnswers?.push({
+                        answer: y?.Answer,
+                        isCorrect: y?.IsCorrect,
+                        type: y?.Type,
+                        answerImage: y?.AnswerImage,
+                        importId: question?.importId,
+                        additional:x?.Additional,
                     } as Answer);
                 }
             })

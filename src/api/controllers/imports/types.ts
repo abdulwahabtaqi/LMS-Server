@@ -23,6 +23,7 @@ export interface CsvFileInput {
     AnswerImage: string;
     QuestionImage: string;
     IsMcqQuestionImage:string;
+    Additional: string;
 }
 
 export interface CreateMCQsInput {

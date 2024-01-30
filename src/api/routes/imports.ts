@@ -3,6 +3,7 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { CsvImportHandler } from '../controllers/imports';
+import { ReserveQuestionAsPractice } from '../controllers/export';
 const router = Router();
 
 const storage = multer.diskStorage({
@@ -18,6 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post('/csvImport', upload?.single('file'), CsvImportHandler);
+router.post('/reservedQuestions', ReserveQuestionAsPractice);
 
 export default router;
 

@@ -1,3 +1,5 @@
+import { ExportTypes } from "@prisma/client";
+
 export interface ExportPaperRequest {
     isPracticeMode: boolean;
     schoolId: string;
@@ -21,6 +23,8 @@ export interface ExportPaperRequest {
     sequenceDifficultyLevel: DifficultyLevel;
     multipleTrueFalseQuantity: number;
     multipleTrueFalseDifficultyLevel: DifficultyLevel;
+    multipleQuestionV2Quantity: number;
+    multipleQuestionV2DifficultyLevel: DifficultyLevel;
     type: QuestionType[];
     MCQVisible: boolean;
     shortQuestionVisible: boolean;
@@ -30,6 +34,7 @@ export interface ExportPaperRequest {
     multipleShortVisible:boolean;
     sequenceVisible:boolean;
     multipleTrueFalseVisible:boolean;
+    multipleQuestionV2Visible:boolean;
 }
 
 export enum QuestionType {
@@ -44,4 +49,9 @@ export enum DifficultyLevel {
     EASY = "EASY",
     MEDIUM = "MEDIUM",
     HARD = "HARD"
+}
+export interface ReservedQuestionAsPractice {
+    userId: string;
+    questionId: string[];
+    type: ExportTypes;
 }
