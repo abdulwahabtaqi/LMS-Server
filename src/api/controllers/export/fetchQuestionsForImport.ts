@@ -4,7 +4,7 @@ import { ExportPaperRequest } from "./types";
 import _ from "lodash";
 import { prisma } from "@/shared/prisma";
 import { AuthenticatedRequest } from "@/middlewares/types";
-import { QuestionType } from "@prisma/client";
+import { ExportTypes, QuestionType } from "@prisma/client";
 
 
 
@@ -14,15 +14,28 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             MCQVisible, longQuestionVisible, shortQuestionVisible, subTopicId,
             longQuestionDifficultyLevel,
             longQuestionQuantity, mcqDifficultyLevel, mcqQuestionQuantity,
-            shortQuestionDifficultyLevel, shortQuestionQuantity
+            shortQuestionDifficultyLevel, shortQuestionQuantity, fillInTheBlanksQuantity, fillInTheBlanksDifficultyLevel, fillInTheBlanksVisible,
+            multiFillInTheBlanksQuantity, multiFillInTheBlanksDifficultyLevel, multiFillInTheBlanksVisible, multipleShortQuantity, multipleShortDifficultyLevel, multipleShortVisible,
+            multipleTrueFalseQuantity, multipleTrueFalseDifficultyLevel, multipleTrueFalseVisible, sequenceQuantity, sequenceDifficultyLevel, sequenceVisible, isPracticeMode
         } = req?.body as ExportPaperRequest;
-        if (!(MCQVisible) && !(longQuestionVisible) && !(shortQuestionVisible)) {
+        if (_?.isUndefined(isPracticeMode)) {
+            return ApiResponse(false, "isPracticeMode is required", null, 400, res);
+        }
+        if (!(MCQVisible) && !(longQuestionVisible) && !(shortQuestionVisible) && !(fillInTheBlanksVisible) && !(multiFillInTheBlanksVisible) && !(multipleShortVisible) && !(multipleTrueFalseVisible) && !(sequenceVisible)) {
             return ApiResponse(false, "At least one question must be selected", null, 400, res);
         }
         let mcqQuestion;
         let shortQuestion;
         let longQuestion;
-        const usedQuestions = [] as string[];
+        let fillInTheBlanksQuestion;
+        let multiFillInTheBlanksQuestion;
+        let multipleShortQuestion;
+        let multipleTrueFalseQuestion;
+        let sequenceQuestion;
+        let usedQuestions = [] as string[];
+        if (isPracticeMode) {
+            usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
+        }
         if (MCQVisible) {
             mcqQuestion = await prisma.question.findMany({
                 where: {
@@ -46,9 +59,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             shortQuestion = await prisma.question.findMany({
                 where: {
                     subTopicId: subTopicId,
-                    type: {
-                        in:[QuestionType.FILLINTHEBLANK,QuestionType.MULTIPLSHORT, QuestionType.FILLINTHEBLANK,QuestionType.SHORT]
-                    },
+                    type: QuestionType.SHORT,
                     difficultyLevel: shortQuestionDifficultyLevel,
                     id: {
                         notIn: usedQuestions
@@ -76,7 +87,87 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 take: parseInt(longQuestionQuantity?.toString()),
             });
         }
-        return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion }, 200, res);
+        if (fillInTheBlanksVisible) {
+            fillInTheBlanksQuestion = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.FILLINTHEBLANK,
+                    difficultyLevel: fillInTheBlanksDifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(fillInTheBlanksQuantity?.toString()),
+            });
+        }
+        if (multiFillInTheBlanksVisible) {
+            multiFillInTheBlanksQuestion = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.MULTIFILLINTHEBLANK,
+                    difficultyLevel: multiFillInTheBlanksDifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(multiFillInTheBlanksQuantity?.toString()),
+            });
+        }
+        if (multipleShortVisible) {
+            multipleShortQuestion = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.MULTIPLSHORT,
+                    difficultyLevel: multipleShortDifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(multipleShortQuantity?.toString()),
+            });
+        }
+        if (multipleTrueFalseVisible) {
+            multipleTrueFalseQuestion = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.MULTIPLETRUEFALSE,
+                    difficultyLevel: multipleTrueFalseDifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(multipleTrueFalseQuantity?.toString()),
+            });
+        }
+        if (sequenceVisible) {
+            sequenceQuestion = await prisma.question.findMany({
+                where: {
+                    subTopicId: subTopicId,
+                    type: QuestionType.SEQUENCE,
+                    difficultyLevel: sequenceDifficultyLevel,
+                    id: {
+                        notIn: usedQuestions
+                    }
+                },
+                include: {
+                    answers: true
+                },
+                take: parseInt(sequenceQuantity?.toString()),
+            });
+        }
+        return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion, fillInTheBlanksQuestion, multiFillInTheBlanksQuestion, multipleShortQuestion, multipleTrueFalseQuestion, sequenceQuestion }, 200, res);
     }
     catch (error) {
         console.log(error?.message);
@@ -85,16 +176,36 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
     }
 }
 
-// const reservedQuestions = (questionId:string[], userId:string) =>{
-//    try {
-//      const reservedQuestion  = prisma.reserved.create({
-//         data:{
+const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
+    try {
+        const reservedQuestions = await prisma.exportedQuestion.findMany({
+            where: {
+                userId: userId,
+                exportType: ExportTypes.PAPER
+            },
+            select: {
+                questionsId: true
+            }
+        });
+        return reservedQuestions?.map((question) => question?.questionsId);
+    } catch (error) {
+        console.log(error?.message);
+        console.log("fetchReservedQuestions::error", JSON?.stringify(error));
+        return [];
+    }
+}
 
-//         }
-//      });
-//    } catch (error) {
-//         console.log(error?.message);
-//         console.log("ExportPaperHandler::error", JSON?.stringify(error));
-//         return ApiResponse(false, "Something Went Wrong", error, 500, res);
-//     }
-// }
+const reserveQuestions = (questionsIds: string[], userId: string, type: string): void => {
+    try {
+        const reserveQuestions = prisma.exportedQuestion.createMany({
+            data: questionsIds.map((id) => ({
+                questionsId: id,
+                userId: userId,
+                exportType: type === "PAPER" ? ExportTypes.PAPER : ExportTypes.PRACTICE
+            }))
+        });
+    } catch (error) {
+        console.log(error?.message);
+        console.log("reserveQuestions::error", JSON?.stringify(error));
+    }
+}

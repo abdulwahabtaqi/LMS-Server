@@ -1,19 +1,35 @@
 export interface ExportPaperRequest {
-    schoolId: string,
-    gradeId: string,
-    subjectId: string,
-    topicId: string,
-    subTopicId: string,
-    mcqQuestionQuantity: number,
-    mcqDifficultyLevel: DifficultyLevel,
-    shortQuestionQuantity: number,
-    shortQuestionDifficultyLevel: DifficultyLevel,
-    longQuestionQuantity: number,
-    longQuestionDifficultyLevel: DifficultyLevel,
-    type: QuestionType[],
-    MCQVisible: boolean,
-    shortQuestionVisible: boolean,
-    longQuestionVisible: boolean,
+    isPracticeMode: boolean;
+    schoolId: string;
+    gradeId: string;
+    subjectId: string;
+    topicId: string;
+    subTopicId: string;
+    mcqQuestionQuantity: number;
+    mcqDifficultyLevel: DifficultyLevel;
+    shortQuestionQuantity: number;
+    shortQuestionDifficultyLevel: DifficultyLevel;
+    longQuestionQuantity: number;
+    longQuestionDifficultyLevel: DifficultyLevel;
+    fillInTheBlanksQuantity: number;
+    fillInTheBlanksDifficultyLevel: DifficultyLevel;
+    multiFillInTheBlanksQuantity: number;
+    multiFillInTheBlanksDifficultyLevel: DifficultyLevel;
+    multipleShortQuantity: number;
+    multipleShortDifficultyLevel: DifficultyLevel;
+    sequenceQuantity: number;
+    sequenceDifficultyLevel: DifficultyLevel;
+    multipleTrueFalseQuantity: number;
+    multipleTrueFalseDifficultyLevel: DifficultyLevel;
+    type: QuestionType[];
+    MCQVisible: boolean;
+    shortQuestionVisible: boolean;
+    longQuestionVisible: boolean;
+    fillInTheBlanksVisible:boolean;
+    multiFillInTheBlanksVisible:boolean;
+    multipleShortVisible:boolean;
+    sequenceVisible:boolean;
+    multipleTrueFalseVisible:boolean;
 }
 
 export enum QuestionType {
