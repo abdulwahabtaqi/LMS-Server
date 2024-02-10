@@ -3,6 +3,7 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { CsvImportHandler } from '../controllers/imports';
+import { XlsxImportHandler } from '../controllers/imports/xlsxImport';
 import { ReserveQuestionAsPractice } from '../controllers/export';
 const router = Router();
 
