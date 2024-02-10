@@ -8,6 +8,7 @@ export interface Question {
      importId:string;
      questionImage:string;
      mcqImage:boolean;
+     additional:string;
 }
 
 export enum QuestionType {

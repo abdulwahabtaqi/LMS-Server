@@ -25,6 +25,7 @@ enum QuestionType {
   MULTIFILLINTHEBLANK
   MULTIPLSHORT
   SEQUENCE
+  MULTIPLSHORTV2
   MULTIPLLONG
   MULTIPLETRUEFALSE
   LONG
@@ -42,13 +43,13 @@ enum ExportTypes {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  email     String?    @unique
+  id        String             @id @default(uuid())
+  email     String?            @unique
   password  String?
   name      String?
-  role      UserRole?  @default(TEACHER)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  role      UserRole?          @default(TEACHER)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
   reserved  ExportedQuestion[]
 }
 
@@ -118,6 +119,7 @@ model Question {
   difficultyLevel DifficultyLevel
   answers         Answer[]
   questionImage   String          @default("")
+  additional      String          @default("")
   mcqImage        Boolean         @default(false)
   answerCount     Int             @default(0)
   importId        String          @unique
@@ -135,6 +137,7 @@ model Answer {
   type        QuestionType
   importId    String       @default("")
   sequenceNo  Int          @default(0)
+  additional  String       @default("")
   isCorrect   Boolean
   answerImage String       @default("")
   createdAt   DateTime     @default(now())
@@ -142,11 +145,11 @@ model Answer {
 }
 
 model ExportedQuestion {
-  id          String   @id @default(uuid())
-  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String      @id @default(uuid())
+  user        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   questionsId String
   exportType  ExportTypes
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 }
