@@ -35,6 +35,7 @@ export interface ExportPaperRequest {
     sequenceVisible:boolean;
     multipleTrueFalseVisible:boolean;
     multipleQuestionV2Visible:boolean;
+    exportMode: string;
 }
 
 export enum QuestionType {
@@ -51,7 +52,5 @@ export enum DifficultyLevel {
     HARD = "HARD"
 }
 export interface ReservedQuestionAsPractice {
-    userId: string;
     questionId: string[];
-    type: ExportTypes;
 }

@@ -17,7 +17,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             shortQuestionDifficultyLevel, shortQuestionQuantity, fillInTheBlanksQuantity, fillInTheBlanksDifficultyLevel, fillInTheBlanksVisible,
             multiFillInTheBlanksQuantity, multiFillInTheBlanksDifficultyLevel, multiFillInTheBlanksVisible, multipleShortQuantity, multipleShortDifficultyLevel, multipleShortVisible,
             multipleTrueFalseQuantity, multipleTrueFalseDifficultyLevel, multipleTrueFalseVisible, sequenceQuantity, sequenceDifficultyLevel, sequenceVisible, isPracticeMode,
-            multipleQuestionV2DifficultyLevel, multipleQuestionV2Quantity, multipleQuestionV2Visible
+            multipleQuestionV2DifficultyLevel, multipleQuestionV2Quantity, multipleQuestionV2Visible, exportMode
         } = req?.body as ExportPaperRequest;
         if (_?.isUndefined(isPracticeMode)) {
             return ApiResponse(false, "isPracticeMode is required", null, 400, res);
@@ -35,7 +35,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
         let sequenceQuestion;
         let multipleShortQuestionV2;
         let usedQuestions = [] as string[];
-        if (isPracticeMode) {
+        if (exportMode===ExportTypes.PRACTICE) {
             usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
         }
         if (MCQVisible) {
