@@ -1,12 +1,13 @@
 import csvParser from 'csv-parser';
 import { Request, Response } from 'express';
+import XLSX from 'xlsx';
 import fs from 'fs';
 import { CreateFillInBlankInput, CreateLongQuestionsInput, CreateMCQsInput, CreateMultipleShortInput, CreateSequenceInput, CreateShortQuestionsInput, CsvFileInput, FileInput } from './types';
 import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
 import { createLongQuestion, createMCQsQuestion, createMultiShortQuestion, createSequenceQuestion, createShortQuestion } from './mcqManagement';
-export const CsvImportHandler = (req: Request, res: Response) => {
+export const XlsxImportHandler = (req: Request, res: Response) => {
     try {
         const { subTopicId } = req?.body as { subTopicId: string };
         const { path, originalname } = req.file as FileInput;
@@ -16,36 +17,15 @@ export const CsvImportHandler = (req: Request, res: Response) => {
         }
 
         const csvData: CsvFileInput[] = [];
+        const workbook = XLSX.readFile(path);
+        const sheet_name = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheet_name];
+        // console.log("sheet===>", sheet);
+        const data = XLSX.utils.sheet_to_json(sheet);
+        console.log("data===>", data);
 
-        fs?.createReadStream(path)
-            ?.pipe(csvParser())
-            ?.on('data', (row) => {
-                csvData.push(row as CsvFileInput);
-                console.log("Row===>", row);
-            })
-            ?.on('end', async () => {
-                // const mcq = CreateMCQs(csvData, subTopicId);
-                // await mccDbCreation(mcq);
-                // const sequence = CreateSequenceQuestions(csvData, subTopicId);
-                // await sequenceQuestions(sequence);
-                // const multipleShort = CreateMultipleShortQuestions(csvData, subTopicId);
-                // await multipleShortDbCreation(multipleShort);
-                // const multipleTrueFalse = CreateMultipleTrueFalseQuestions(csvData, subTopicId);
-                // await multipleShortDbCreation(multipleTrueFalse);
-                // const fillInTheBlanksQuestion = CreateFillInTheBlankQuestions(csvData, subTopicId);
-                // await multipleShortDbCreation(fillInTheBlanksQuestion);
-                // const multiFillInTheBlanksQuestion = CreateMultiFillInTheBlankQuestions(csvData, subTopicId);
-                // await multipleShortDbCreation(multiFillInTheBlanksQuestion);
-                // const shortQuestions = createShortQuestions(csvData, subTopicId);
-                // await shortDbCreation(shortQuestions);
-                // const longQuestions = createLongQuestions(csvData, subTopicId);
-                // await longDbCreation(longQuestions);
 
-                deleteFile(path);
-            })
-            ?.on('error', (error) => {
-                console.error(error);
-            });
+
         return res?.status(200)?.json({ status: true, message: 'Import Completed', data: csvData });
     } catch (error) {
         console.error(error);
