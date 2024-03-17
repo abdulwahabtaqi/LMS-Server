@@ -35,7 +35,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
         let sequenceQuestion;
         let multipleShortQuestionV2;
         let usedQuestions = [] as string[];
-        if (exportMode===ExportTypes.PRACTICE) {
+        if (exportMode === ExportTypes.PRACTICE) {
             usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
         }
         if (MCQVisible) {
@@ -216,19 +216,32 @@ const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
 
 export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: Response) => {
     try {
-        const { questionId  } = req?.body as ReservedQuestionAsPractice;
+        const { questionIds, questionMode } = req?.body as ReservedQuestionAsPractice;
         const reserveQuestions = await prisma.exportedQuestion.createMany({
-            data: questionId?.map((question) => {
+            data: questionIds?.map((questionId) => {
                 return {
                     userId: req?.user?.id,
-                    questionsId: question,
-                    exportType: ExportTypes.PRACTICE
+                    questionsId: questionId,
+                    exportType: questionMode === "Practice" ? ExportTypes.PRACTICE : ExportTypes.PAPER
                 }
             })
         });
-       return ApiResponse(true, "Questions reserved successfully", reserveQuestions, 200, res);
+        return ApiResponse(true, "Questions reserved successfully", reserveQuestions, 200, res);
     } catch (error) {
-        console.log("reserveQuestionAsPractice::error", JSON?.stringify(error?.message));
+        console.log("error?.message", error?.message)
+        // console.log("reserveQuestionAsPractice::error", JSON?.stringify(error?.message));
+        return ApiResponse(false, "Something Went Wrong", error, 500, res);
+    }
+}
+
+export const etchReserveQuestions = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const reservedQuestions = await prisma.exportedQuestion.findMany({
+            where: { userId: req?.user?.id }
+        });
+        return ApiResponse(true, "Questions etched successfully", reservedQuestions, 200, res);
+    } catch (error) {
+        console.log("reserveQuestions::error", JSON?.stringify(error?.message));
         return ApiResponse(false, "Something Went Wrong", error, 500, res);
     }
 }
