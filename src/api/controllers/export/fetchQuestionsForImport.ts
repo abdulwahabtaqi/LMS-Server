@@ -72,6 +72,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(shortQuestionQuantity?.toString()),
             });
+            console.log("shortQuestion", shortQuestion);
         }
         if (longQuestionVisible) {
             longQuestion = await prisma.question.findMany({

@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/csvImport', upload?.single('file'), CsvImportHandler);
+router.post('/csvImport', upload?.single('file'), XlsxImportHandler);
 router.post('/reservedQuestions', ReserveQuestionAsPractice);
 
 export default router;

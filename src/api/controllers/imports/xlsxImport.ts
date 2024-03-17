@@ -1,4 +1,3 @@
-import csvParser from 'csv-parser';
 import { Request, Response } from 'express';
 import XLSX from 'xlsx';
 import fs from 'fs';
@@ -7,7 +6,14 @@ import { Question } from '../question/types';
 import { v4 as uuidv4 } from 'uuid';
 import { Answer } from '../answer/types';
 import { createLongQuestion, createMCQsQuestion, createMultiShortQuestion, createSequenceQuestion, createShortQuestion } from './mcqManagement';
-export const XlsxImportHandler = (req: Request, res: Response) => {
+import { singleChoiceQuestionTransformer } from './transformers/singleChoiceQuestionTransformer';
+import { multipleChoiceQuestionTransformer } from './transformers/multipleChoiceQuestionTransformer';
+import { fillInTheBlanksQuestionTransformer } from './transformers/fillInTheBlanksQuestionTransformer';
+import { sequenceQuestionTransformer } from './transformers/sequenceQuestionTransformer';
+import { multipleTrueFalseQuestionTransformer } from './transformers/multipleTrueFalseQuestionTransformer';
+import { shortQuestionTransformer } from './transformers/shortQuestionTransformer';
+import { longQuestionTransformer } from './transformers/longQuestionTransformer';
+export const XlsxImportHandler = async (req: Request, res: Response) => {
     try {
         const { subTopicId } = req?.body as { subTopicId: string };
         const { path, originalname } = req.file as FileInput;
@@ -17,14 +23,48 @@ export const XlsxImportHandler = (req: Request, res: Response) => {
         }
 
         const csvData: CsvFileInput[] = [];
-        const workbook = XLSX.readFile(path);
-        const sheet_name = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheet_name];
-        // console.log("sheet===>", sheet);
-        const data = XLSX.utils.sheet_to_json(sheet);
-        console.log("data===>", data);
+        const workbook = XLSX?.readFile(path);
+        const sheet_name = workbook?.SheetNames[0];
+        const sheet = workbook?.Sheets[sheet_name];
+        const data = XLSX?.utils?.sheet_to_json(sheet);
+
+        const transformedMcq = singleChoiceQuestionTransformer(data);
+        const mcq = CreateMCQs(transformedMcq, subTopicId);
+        await mccDbCreation(mcq);
+
+        const transformedMultiMcq = multipleChoiceQuestionTransformer(data);
+        const multiMcq = CreateMCQs(transformedMultiMcq, subTopicId);
+        await mccDbCreation(multiMcq);
+
+        const transformedMultiFillInTheBlanksQuestion = fillInTheBlanksQuestionTransformer(data);
+        const multiFillInTheBlanksQuestion = CreateFillInTheBlankQuestions(transformedMultiFillInTheBlanksQuestion, subTopicId);
+        await multipleShortDbCreation(multiFillInTheBlanksQuestion);
+
+        const transformedSequence = sequenceQuestionTransformer(data);
+        const sequence = CreateSequenceQuestions(transformedSequence, subTopicId);
+        await sequenceQuestions(sequence);
+
+        const transformedMultipleTrueFalse = multipleTrueFalseQuestionTransformer(data);
+        const multipleTrueFalse = CreateMultipleTrueFalseQuestions(transformedMultipleTrueFalse, subTopicId);
+        await multipleShortDbCreation(multipleTrueFalse);
+
+        const transformedShortQuestions = shortQuestionTransformer(data);
+        const shortQuestions = createShortQuestions(transformedShortQuestions, subTopicId);
+        console.log("transformedShortQuestions===>", transformedShortQuestions);
+        await shortDbCreation(shortQuestions);
+
+        const transformedLongQuestions = longQuestionTransformer(data);
+        const longQuestions = createLongQuestions(transformedLongQuestions, subTopicId);
+        await longDbCreation(longQuestions);
 
 
+        // console.log("mcq===>", mcq);
+        // console.log("multiMcq===>", multiMcq);
+        // console.log("multiFillInTheBlanksQuestion===>", multiFillInTheBlanksQuestion);
+        // console.log("sequence===>", sequence);
+        // console.log("multipleTrueFalse===>", multipleTrueFalse);
+        // console.log("shortQuestions===>", shortQuestions);
+        // console.log("longQuestions===>", longQuestions);
 
         return res?.status(200)?.json({ status: true, message: 'Import Completed', data: csvData });
     } catch (error) {

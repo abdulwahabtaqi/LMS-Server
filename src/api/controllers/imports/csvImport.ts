@@ -8,6 +8,7 @@ import { Answer } from '../answer/types';
 import { createLongQuestion, createMCQsQuestion, createMultiShortQuestion, createSequenceQuestion, createShortQuestion } from './mcqManagement';
 export const CsvImportHandler = (req: Request, res: Response) => {
     try {
+        const tempArray = [] as any
         const { subTopicId } = req?.body as { subTopicId: string };
         const { path, originalname } = req.file as FileInput;
         console.log("path", path);
@@ -21,23 +22,33 @@ export const CsvImportHandler = (req: Request, res: Response) => {
             ?.pipe(csvParser())
             ?.on('data', (row) => {
                 csvData.push(row as CsvFileInput);
-                console.log("Row===>", row);
+                tempArray?.push(row);
+                // console.log("Row===>", row);
             })
             ?.on('end', async () => {
+                const tempArr2 = [] as any
+                console.log('CSV file successfully processed', tempArray);
+                tempArray?.forEach((x: any) => {
+                    const keys = Object?.values(x);
+                    if (keys?.[0] == 555) {
+                        tempArr2?.push(x);
+                    }
+                });
+                console.log("TempArr2===>", tempArr2);
                 const mcq = CreateMCQs(csvData, subTopicId);
-                await mccDbCreation(mcq);
-                const sequence = CreateSequenceQuestions(csvData, subTopicId);
-                await sequenceQuestions(sequence);
-                const multipleShort = CreateMultipleShortQuestions(csvData, subTopicId);
-                await multipleShortDbCreation(multipleShort);
-                const multipleTrueFalse = CreateMultipleTrueFalseQuestions(csvData, subTopicId);
-                await multipleShortDbCreation(multipleTrueFalse);
-                const fillInTheBlanksQuestion = CreateFillInTheBlankQuestions(csvData, subTopicId);
-                await multipleShortDbCreation(fillInTheBlanksQuestion);
-                const multiFillInTheBlanksQuestion = CreateMultiFillInTheBlankQuestions(csvData, subTopicId);
-                await multipleShortDbCreation(multiFillInTheBlanksQuestion);
-                const multipleShortV2 = CreateMultipleShortV2Questions(csvData, subTopicId);
-                await multipleShortDbCreation(multipleShortV2);
+                // await mccDbCreation(mcq);
+                // const sequence = CreateSequenceQuestions(csvData, subTopicId);
+                // await sequenceQuestions(sequence);
+                // const multipleShort = CreateMultipleShortQuestions(csvData, subTopicId);
+                // await multipleShortDbCreation(multipleShort);
+                // const multipleTrueFalse = CreateMultipleTrueFalseQuestions(csvData, subTopicId);
+                // await multipleShortDbCreation(multipleTrueFalse);
+                // const fillInTheBlanksQuestion = CreateFillInTheBlankQuestions(csvData, subTopicId);
+                // await multipleShortDbCreation(fillInTheBlanksQuestion);
+                // const multiFillInTheBlanksQuestion = CreateMultiFillInTheBlankQuestions(csvData, subTopicId);
+                // await multipleShortDbCreation(multiFillInTheBlanksQuestion);
+                // const multipleShortV2 = CreateMultipleShortV2Questions(csvData, subTopicId);
+                // await multipleShortDbCreation(multipleShortV2);
                 // const shortQuestions = createShortQuestions(csvData, subTopicId);
                 // await shortDbCreation(shortQuestions);
                 // const longQuestions = createLongQuestions(csvData, subTopicId);
