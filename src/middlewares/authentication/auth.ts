@@ -13,6 +13,7 @@ export const Authentication = (req: AuthenticatedRequest, res: Response, next: N
         if (!verify) {
             return res.status(401).json({ status: false, msg: "Un-Authorize", data: null })
         }
+        console.log("Authentication::verify", verify);
         req.user = verify as AuthenticatedRequest["user"];
         return next();
     } catch (error) {

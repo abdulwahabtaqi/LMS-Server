@@ -42,6 +42,11 @@ enum ExportTypes {
   PAPER
 }
 
+enum ExportedQuestionStatus {
+  NORMAL
+  DELETED
+}
+
 model User {
   id        String             @id @default(uuid())
   email     String?            @unique
@@ -145,11 +150,12 @@ model Answer {
 }
 
 model ExportedQuestion {
-  id          String      @id @default(uuid())
-  user        User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String                 @id @default(uuid())
+  user        User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String?
   questionsId String
   exportType  ExportTypes
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  status      ExportedQuestionStatus @default(NORMAL)
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
 }

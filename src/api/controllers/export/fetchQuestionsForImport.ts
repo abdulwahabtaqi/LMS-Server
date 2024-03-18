@@ -4,7 +4,7 @@ import { ExportPaperRequest, ReservedQuestionAsPractice } from "./types";
 import _ from "lodash";
 import { prisma } from "@/shared/prisma";
 import { AuthenticatedRequest } from "@/middlewares/types";
-import { ExportTypes, QuestionType } from "@prisma/client";
+import { ExportTypes, ExportedQuestionStatus, QuestionType } from "@prisma/client";
 
 
 
@@ -226,6 +226,7 @@ export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: 
                 }
             })
         });
+        console.log("reserveQuestions", reserveQuestions)
         return ApiResponse(true, "Questions reserved successfully", reserveQuestions, 200, res);
     } catch (error) {
         console.log("error?.message", error?.message)
@@ -234,11 +235,15 @@ export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: 
     }
 }
 
-export const etchReserveQuestions = async (req: AuthenticatedRequest, res: Response) => {
+export const fetchReserveQuestionsHandler = async (req: AuthenticatedRequest, res: Response) => {
     try {
         const reservedQuestions = await prisma.exportedQuestion.findMany({
-            where: { userId: req?.user?.id }
+            where: { 
+                userId: req?.user?.id,
+                status:ExportedQuestionStatus.NORMAL
+             }
         });
+        console.log("reservedQuestions", reservedQuestions);
         return ApiResponse(true, "Questions etched successfully", reservedQuestions, 200, res);
     } catch (error) {
         console.log("reserveQuestions::error", JSON?.stringify(error?.message));
