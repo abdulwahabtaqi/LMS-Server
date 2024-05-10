@@ -54,4 +54,5 @@ export enum DifficultyLevel {
 export interface ReservedQuestionAsPractice {
     questionIds: string[];
     questionMode:string;
+    name:string
 }

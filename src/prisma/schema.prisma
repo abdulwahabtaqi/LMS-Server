@@ -115,21 +115,22 @@ model SubTopic {
 }
 
 model Question {
-  id              String          @id @default(uuid())
-  subTopic        SubTopic?       @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
-  subTopicId      String?
-  question        String?
-  type            QuestionType
-  marks           Int
-  difficultyLevel DifficultyLevel
-  answers         Answer[]
-  questionImage   String          @default("")
-  additional      String          @default("")
-  mcqImage        Boolean         @default(false)
-  answerCount     Int             @default(0)
-  importId        String          @unique
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  id                String             @id @default(uuid())
+  subTopic          SubTopic?          @relation(fields: [subTopicId], references: [id], onDelete: Cascade)
+  subTopicId        String?
+  question          String?
+  type              QuestionType
+  marks             Int
+  difficultyLevel   DifficultyLevel
+  answers           Answer[]
+  reservedQuestions ExportedQuestion[]
+  questionImage     String             @default("")
+  additional        String             @default("")
+  mcqImage          Boolean            @default(false)
+  answerCount       Int                @default(0)
+  importId          String             @unique
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
   // @@unique([subTopicId, question])
 }
 
@@ -151,9 +152,11 @@ model Answer {
 
 model ExportedQuestion {
   id          String                 @id @default(uuid())
+  name        String                 @default("")
   user        User?                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question?              @relation(fields: [questionsId], references: [id], onDelete: Cascade)
   userId      String?
-  questionsId String
+  questionsId String?
   exportType  ExportTypes
   status      ExportedQuestionStatus @default(NORMAL)
   createdAt   DateTime               @default(now())

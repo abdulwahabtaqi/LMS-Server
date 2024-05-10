@@ -38,6 +38,7 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
         if (exportMode === ExportTypes.PRACTICE) {
             usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
         }
+        console.log("usedQuestions===>", usedQuestions)
         if (MCQVisible) {
             mcqQuestion = await prisma.question.findMany({
                 where: {
@@ -202,13 +203,13 @@ const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
                 userId: userId,
                 exportType: ExportTypes.PAPER
             },
-            select: {
-                questionsId: true
+            include: {
+                question: true
             }
         });
-        return reservedQuestions?.map((question) => question?.questionsId);
+        console.log("questionsToCheck:::", reservedQuestions)
+        return reservedQuestions?.map((question) => question?.questionsId ?? "");
     } catch (error) {
-        console.log(error?.message);
         console.log("fetchReservedQuestions::error", JSON?.stringify(error));
         return [];
     }
@@ -216,17 +217,24 @@ const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
 
 export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: Response) => {
     try {
+        console.log("req.body", req.body)
         const { questionIds, questionMode } = req?.body as ReservedQuestionAsPractice;
+        const findName = await prisma.exportedQuestion.findFirst({
+            where: { name: req?.body?.name }
+        });
+        if (!_?.isEmpty(findName)) {
+            return ApiResponse(false, "Export with this name already exists", "", 200, res);
+        }
         const reserveQuestions = await prisma.exportedQuestion.createMany({
             data: questionIds?.map((questionId) => {
                 return {
+                    name: req?.body?.name,
                     userId: req?.user?.id,
                     questionsId: questionId,
                     exportType: questionMode === "Practice" ? ExportTypes.PRACTICE : ExportTypes.PAPER
                 }
             })
         });
-        console.log("reserveQuestions", reserveQuestions)
         return ApiResponse(true, "Questions reserved successfully", reserveQuestions, 200, res);
     } catch (error) {
         console.log("error?.message", error?.message)
@@ -238,12 +246,14 @@ export const ReserveQuestionAsPractice = async (req: AuthenticatedRequest, res: 
 export const fetchReserveQuestionsHandler = async (req: AuthenticatedRequest, res: Response) => {
     try {
         const reservedQuestions = await prisma.exportedQuestion.findMany({
-            where: { 
+            where: {
                 userId: req?.user?.id,
-                status:ExportedQuestionStatus.NORMAL
-             }
+                status: ExportedQuestionStatus.NORMAL
+            },
+            include: {
+                question: true
+            }
         });
-        console.log("reservedQuestions", reservedQuestions);
         return ApiResponse(true, "Questions etched successfully", reservedQuestions, 200, res);
     } catch (error) {
         console.log("reserveQuestions::error", JSON?.stringify(error?.message));
