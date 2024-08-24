@@ -11,7 +11,6 @@ export const createMCQsQuestion = async (data: CreateMCQsInput) => {
     const newQuestions = await prisma.question.createMany({
       data: MCQsQuestions
     });
-    console.log("McqQuestions", newQuestions)
     if (newQuestions?.count > 0) {
       const importId = data?.MCQsAnswers?.map(answer => answer?.importId) as string[];
       const questions = await prisma.question.findMany({
