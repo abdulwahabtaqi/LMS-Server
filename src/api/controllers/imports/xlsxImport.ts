@@ -127,7 +127,7 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         importId: question?.importId,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage || '',
                     } as Answer);
                 }
             })
@@ -160,7 +160,7 @@ export const CreateSequenceQuestions = (csvData: CsvFileInput[], subTopicId: str
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         importId: question?.importId,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage  || '',
                         sequenceNo: parseInt(y?.Counter),
                     } as Answer);
                 }
@@ -185,7 +185,7 @@ export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 answerCount: parseInt(x?.Counter),
-                questionImage: x?.QuestionImage,
+                questionImage: x?.QuestionImage || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIPLSHORT")?.forEach(y => {
@@ -194,7 +194,7 @@ export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId
                         answer: y?.Answer,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage || '',
                         importId: question?.importId,
                     } as Answer);
                 }
@@ -220,7 +220,7 @@ export const CreateMultipleTrueFalseQuestions = (csvData: CsvFileInput[], subTop
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 answerCount: 0,
-                questionImage: x?.QuestionImage,
+                questionImage: x?.QuestionImage || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIPLETRUEFALSE")?.forEach(y => {
@@ -229,7 +229,7 @@ export const CreateMultipleTrueFalseQuestions = (csvData: CsvFileInput[], subTop
                         answer: y?.Answer,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage || '',
                         importId: question?.importId,
                     } as Answer);
                 }
@@ -255,7 +255,7 @@ export const CreateFillInTheBlankQuestions = (csvData: CsvFileInput[], subTopicI
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 answerCount: 0,
-                questionImage: x?.QuestionImage,
+                questionImage: x?.QuestionImage || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "FILLINTHEBLANK")?.forEach(y => {
@@ -264,7 +264,7 @@ export const CreateFillInTheBlankQuestions = (csvData: CsvFileInput[], subTopicI
                         answer: y?.Answer,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage || '',
                         importId: question?.importId,
                     } as Answer);
                 }
@@ -290,7 +290,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: CsvFileInput[], subT
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 answerCount: 0,
-                questionImage: x?.QuestionImage,
+                questionImage: x?.QuestionImage || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIFILLINTHEBLANK")?.forEach(y => {
@@ -299,7 +299,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: CsvFileInput[], subT
                         answer: y?.Answer,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
-                        answerImage: y?.AnswerImage,
+                        answerImage: y?.AnswerImage || '',
                         importId: question?.importId,
                     } as Answer);
                 }
