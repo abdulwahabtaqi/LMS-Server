@@ -1,6 +1,6 @@
 import { CsvFileInput } from "../types";
 
-export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
+export const sequenceQuestionTransformer = (data: any): any[] => {
     // console.log("data=====>", data);        
     const tempArray = [] as any;
     data?.forEach((x: any) => {
@@ -10,7 +10,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
         }
     });
 
-    const mcqQuestions = [] as CsvFileInput[];
+    const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
 
         // a
@@ -26,7 +26,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("a") + 1)?.toString(),
-            Additional: "",  
+            Additional: "",
         });
         // b
         mcqQuestions?.push({
@@ -41,7 +41,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("b") + 1)?.toString(),
-            Additional: "", 
+            Additional: "",
         });
         // c
         mcqQuestions?.push({
@@ -56,7 +56,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("c") + 1)?.toString(),
-            Additional: "", 
+            Additional: "",
         });
         // d
         mcqQuestions?.push({
@@ -71,7 +71,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("d") + 1)?.toString(),
-            Additional: "", 
+            Additional: "",
         });
         // e
         mcqQuestions?.push({
@@ -86,7 +86,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("e") + 1)?.toString(),
-            Additional: "", 
+            Additional: "",
         });
         // f
         mcqQuestions?.push({
@@ -101,7 +101,7 @@ export const sequenceQuestionTransformer = (data: any): CsvFileInput[] => {
             QuestionImage: "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("f") + 1)?.toString(),
-            Additional: "" , 
+            Additional: "",
         });
     });
     return mcqQuestions;

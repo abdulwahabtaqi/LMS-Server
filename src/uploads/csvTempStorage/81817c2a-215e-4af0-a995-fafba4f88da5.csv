@@ -1,0 +1,116 @@
+Single Choice Questions,,,,,,,,,,,,,,,,
+SCQS Code ,Question Type code,Difficulty Level,Question,Option 1 (A),Option 1 Image,Option 2 (B),Option 2 Image,Option 3 (C),Option 3 Image,Option 4 (D),Option 4 Image,Option 5 (E),Option 5 Image,Option 6 (F),Option 6 Image,Correct Answer
+555,X2132,Hard,"In JavaScript, what is the purpose of the ""typeof"" operator?",To declare a variable type,no,To create a new object type,no,To check the type of a variable or expression,no,To assign a variable type,no,To convert a variable to a specific type,no,To define a custom data type,no,C
+555,X5123,Easy,What does JavaScript primarily provide to enhance web interactivity?,Style,no, Sound ,no,Behavior,no,Animation,no, Size,no,Taste,no,c
+555,X5890,Hard,Which keyword is used to declare variables in JavaScript?,let,no,var,no,const,no, set,no,def,no,allow,no,a
+555,X315,Easy,What does the acronym DOM stand for in JavaScript?,Document Object Model,no,Dynamic Object Manipulation,no,Data Object Model,no,Document Order Model,no,Distributed Object Model,no,Designated Object Module,no,a
+555,X9481,Hard,Which of the following is NOT a data type in JavaScript?,String,no,Boolean,no,Float,no,Character,no,Null,no,Undefined,no,d
+555,X9803,Easy,How is a single-line comment denoted in JavaScript?,//,no,--,,/*,no,#,no,',no,,no,a
+555,X8741,Easy,What is the purpose of the typeof operator in JavaScript?,Determines the type of a variable,no,Converts a variable to a specific type,no,Assigns a new type to a variable,no,Checks if a variable is undefined,no,Concatenates variable types,no,Removes the type of a variable,no,a
+555,X262,Hard,Which function is used to print output to the console in JavaScript?,log(),no,print(),no,display(),no,output(),no,show(),no,console(),no,a
+555,X841,Medium,How can you prevent a specific event's default behavior in JavaScript?,event.cancel(),no,event.stop(),no,event.prevent(),no,event.abort(),no,event.halt(),no,event.preventDefault(),no,f
+555,X2364,Hard,What does AJAX stand for in JavaScript?,Asynchronous JavaScript and XML,no,Advanced JavaScript and XHTML,no,Automated JavaScript and XQuery,no,Accelerated JavaScript and XPath,no,Assembled JavaScript and XSLT,no,Associated JavaScript and XLink,no,a
+555,X5471,Hard,Which method is used to add new elements to the end of an array in JavaScript?,append(),no,push(),no,insert(),no,add(),no,concat(),no,extend(),no,b
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+Multiple Choice Questions,,,,,,,,,,,,,,,,
+MCQS Code ,Question Type code,Difficulty Level,Question,Option 1 (A),Option 1 Image,Option 2 (B),Option 2 Image,Option 3 (C),Option 3 Image,Option 4 (D),Option 4 Image,Option 5 (E),Option 5 Image,Option 6 (E),Option 6 Image,Correct Answer
+666,X3654,Easy,"In JavaScript, what is the purpose of the ""typeof"" operator?",To declare a variable type,no,To create a new object type,no,To check the type of a variable or expression,no,To assign a variable type,no,To convert a variable to a specific type,no,To define a custom data type,no,"C,E"
+666,X548,Easy,Which of the following is a valid way to declare a JavaScript function?,function myFunction() {},no,var myFunction = function() {},no,const myFunction = () => {},no,function = myFunction() {},no,function: myFunction() {},no,myFunction: function() {},no,"a, b"
+666,X354,Hard,"What is the purpose of the ""this"" keyword in JavaScript?",Refers to the current HTML document,no,Refers to the global object,no,Refers to the parent function,no,Refers to the calling object,no,Refers to the next sibling element,no,Refers to the window object,no,"b, d"
+666,X144,Easy,How can you check if a variable is an array in JavaScript?,isArray(variable),no,variable.typeOf() === 'array',no,typeof variable === 'array',no,variable instanceof Array,no,Array.check(variable),no,variable.isArray(),no,"a, d"
+666,X9841,Easy,"What does the ""=== ""operator do in JavaScript?",Compares values for equality without type coercion,no,Assigns a value to a variable,no,Checks if a variable is defined,no,Performs a bitwise comparison,no,Compares values for equality with type coercion,no,Concatenates two strings,no,"a, e"
+666,X846,Easy,"In JavaScript, what is the purpose of the ""break"" statement?",Exits the current loop or switch statement,no,Continues to the next iteration of a loop,no,Throws an exception,no,Terminates the script execution,no,Skips the next line of code,no,Halts the browser,no,"a, d"
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+Fill in the Blanks,,,,,,,,,,,,,,,,
+FITB Code,Question Type code,difficulty Level,Question,Anwers,,,,,,,,,,,,
+777,X845,Easy,"The ""==="" operator in JavaScript checks both value and ______________ equality.",Type,,,,,,,,,,,,
+777,X845,Easy,JavaScript is a ______________ programming language widely used for creating dynamic and interactive web content.,scripting,,,,,,,,,,,,
+777,X845,Easy,"The ""DOM"" stands for Document ______________ Model.",Object,,,,,,,,,,,,
+777,X845,Hard,"In JavaScript, a variable declared with the ""const"" keyword cannot be ______________ after initialization.",reassigned,,,,,,,,,,,,
+777,X841,Hard,The function keyword is used to declare ______________ in JavaScript.,functions,,,,,,,,,,,,
+777,X841,Easy,"The ""querySelector"" method is used to select HTML elements using ______________.",CSS selectors,,,,,,,,,,,,
+777,X741,Easy,"JavaScript uses the ""try,"" ""catch,"" and ______________ statements for error handling.",finally,,,,,,,,,,,,
+777,X321,Hard,"The ""DOM"" stands for Document ______________ and ______________ Model.","Object, Object-oriented",,,,,,,,,,,,
+777,X321,Easy,"In JavaScript, a variable declared with the ""const"" keyword cannot be ______________ or ______________ after initialization.","reassigned, redeclared",,,,,,,,,,,,
+777,X231,Hard,The function keyword is used to declare ______________ and ______________ in JavaScript.,"functions, methods",,,,,,,,,,,,
+777,X321,Hard,"The ""==="" operator in JavaScript checks both value and ______________, ______________ equality.","type, strict",,,,,,,,,,,,
+777,X321,Medium,"JavaScript uses the ""try,"" ""catch,"" and ______________, ______________ statements for error handling.","finally, throw",,,,,,,,,,,,
+777,X321,Easy,"The ""querySelector"" method is used to select HTML elements using ______________ and ______________.","CSS selectors, pseudo-classes",,,,,,,,,,,,
+777,X321,Medium,JavaScript is a ______________ and ______________ programming language widely used for creating dynamic and interactive web content.,"scripting, interpreted",,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+Sequence Questions,,,,,,,,,,,,,,,,
+Sequence Code ,Question Type code,Difficulty Level,Question,Option 1 (A),Option 1 Image,Option 2 (B),Option 2 Image,Option 3 (C),Option 3 Image,Option 4 (D),Option 4 Image,Option 5 (E),Option 5 Image,Option 6 (F),Option 6 Image,Correct Answer
+888,X845,Easy,"In JavaScript, what is the purpose of the ""typeof"" operator?",To declare a variable type,no,To create a new object type,no,To check the type of a variable or expression,no,To assign a variable type,no,To convert a variable to a specific type,no,To define a custom data type,no,"B,E,C,D,A,F"
+888,X8486,Hard,"In JavaScript, what is the purpose of the ""typeof"" operator?",To declare a variable type,no,To create a new object type,no,To check the type of a variable or expression,no,To assign a variable type,no,To convert a variable to a specific type,no,To define a custom data type,no,"B,E,C,D,A,F"
+,,,,,,,,,,,,,,,,
+True/False Questions,,,,,,,,,,,,,,,,
+True/False Code,Question Type code,Difficulty Level,Question,Option 1 - True,Option 2 - False,Answer,,,,,,,,,,
+999,X548,Easy,JavaScript is a compiled programming language.,TRUE,FALSE,FALSE,,,,,,,,,,
+999,X548,Hard,"The ""localStorage"" object in JavaScript has a higher storage limit compared to ""sessionStorage.""",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X548,Easy,JavaScript is primarily a server-side scripting language.,TRUE,FALSE,FALSE,,,,,,,,,,
+999,X548,Easy,"The ""null"" value in JavaScript represents an empty or non-existent object.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X548,Hard,"JavaScript is a strictly typed language, meaning variable types cannot change dynamically.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Easy,"The ""let"" keyword in JavaScript is used to declare variables with block scope.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Hard,"The ""NaN"" value in JavaScript stands for ""Not a Number.""",TRUE,FALSE,TRUE,,,,,,,,,,
+999,X846,Easy,"The ""== ""operator in JavaScript performs type coercion during comparison.",TRUE,FALSE,TRUE,,,,,,,,,,
+999,X846,Easy,A function in JavaScript can be called before its declaration.,TRUE,FALSE,TRUE,,,,,,,,,,
+999,X846,Medium,"The ""undefined"" value in JavaScript represents an explicitly assigned absence of a value.",TRUE,FALSE,TRUE,,,,,,,,,,
+999,X846,Hard,JavaScript is a compiled language.,TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Easy,"The ""splice"" method in JavaScript is used for adding elements to an array.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Easy,"The ""async/await"" syntax in JavaScript is used for synchronous code execution.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Medium,"The ""NaN"" (Not-a-Number) value in JavaScript is considered equal to any other value, including itself.",TRUE,FALSE,FALSE,,,,,,,,,,
+999,X846,Easy,"The ""async"" keyword in JavaScript is used to define a function that always returns a resolved Promise.",TRUE,FALSE,FALSE,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+Short Answers Questions,,,,,,,,,,,,,,,,
+Short Answers Code,Question Type code,Difficulty Level,Questions,Answers,,,,,,,,,,,,
+1010,X845,Easy,"What is the purpose of the ""this"" keyword in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X861,Easy,What is JavaScript?,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X5486,Hard,"Explain the difference between ""undefined"" and ""null"" in JavaScript.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X321,Easy,"What is the purpose of the ""let"" keyword in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X983,Hard,"How does the ""this"" keyword work in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X8465,Easy,What is a closure in JavaScript? Provide an example.,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X695,Easy,Explain the concept of event delegation in JavaScript.,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X547,Easy,"Differentiate between ""=="" and ""==="" operators in JavaScript.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X8463,Easy,"What is the significance of the ""prototype"" property in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X32141,Medium,How do you handle asynchronous operations in JavaScript?,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X36014,Easy,"What is the purpose of the ""use strict"" directive in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X32049,Easy,"Explain the difference between ""var,"" ""let,"" and ""const"" in declaring variables.","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X321,Easy,"How does the ""map"" function work in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X65495,Medium,"What is the difference between ""null"" and ""undefined"" in JavaScript?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X651,Medium,Explain the concept of promises in JavaScript.,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X398,Easy,"What are arrow functions, and how are they different from regular functions?","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X8446,Easy,Explain the concept of closure in JavaScript.,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+1010,X5186,Easy,How does event delegation work in JavaScript?,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,
+Long Answers Questions,,,,,,,,,,,,,,,,
+Long Answers Code,Question Type code,Difficulty Level,Questions,Answers,,,,,,,,,,,,
+1011,X515,Easy,Explain the concept of closure in JavaScript and provide an example.,,,,,,,,,,,,,
+1011,X3214,Easy,"Describe the differences between 'let', 'const', and 'var' in variable declarations.",,,,,,,,,,,,,
+1011,X314,Easy,How does prototypal inheritance work in JavaScript?,,,,,,,,,,,,,
+1011,X8463,Medium,Discuss the event delegation pattern and its benefits.,,,,,,,,,,,,,
+1011,X23014,Easy,Explain the purpose of the 'this' keyword in JavaScript.,,,,,,,,,,,,,
+1011,X9630,Hard,"What is AJAX, and how does it work in web development?",,,,,,,,,,,,,
+1011,X9630,Easy,Compare and contrast synchronous and asynchronous JavaScript.,,,,,,,,,,,,,
+1011,X2001,Easy,How does the 'async/await' syntax improve asynchronous code readability?,,,,,,,,,,,,,
+1011,X201,Hard,Pyhton will ve,,,,,,,,,,,,,
+1011,X9300,Easy,Explain the concept of hoisting in JavaScript.,,,,,,,,,,,,,
+1011,X2014,Easy,"Describe the purpose and usage of the 'map', 'filter', and 'reduce' array methods.",,,,,,,,,,,,,
+1011,X6901,Medium,Discuss the differences between 'null' and 'undefined' in JavaScript.,,,,,,,,,,,,,
+1011,X1403,Easy,Explain the 'Promise' object and its role in handling asynchronous operations.,,,,,,,,,,,,,
+1011,X6901,Easy,How can you prevent cross-site scripting (XSS) attacks in JavaScript?,,,,,,,,,,,,,
+1011,X0321,Hard,Describe the principles of event-driven programming in JavaScript.,,,,,,,,,,,,,
+1011,X134,Medium,Explain the concept of hoisting in JavaScript.,,,,,,,,,,,,,

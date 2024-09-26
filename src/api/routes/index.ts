@@ -12,6 +12,9 @@ import question from './question';
 import answer from './answer';
 import imports from './imports';
 import exporter from './exports';
+import csv from './csvSample';
+
+
 import { Authentication, Authorization } from "@/middlewares";
 
 router.use('/auth', auth);
@@ -25,5 +28,6 @@ router.use('/question', Authentication, Authorization(["admin"]), question);
 router.use('/answer', Authentication, Authorization(["admin"]), answer);
 router.use('/imports', imports);
 router.use('/exporter', Authentication, Authorization(["admin"]), exporter);
+router.use('/csv', csv);
 
 export default router;

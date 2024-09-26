@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { CsvFileInput } from "../types";
 
-export const shortQuestionTransformer = (data: any): CsvFileInput[] => {
+export const shortQuestionTransformer = (data: any): any[] => {
     const tempArray = [] as any;
     data?.forEach((x: any) => {
         const keys = Object?.values(x);
@@ -9,18 +9,18 @@ export const shortQuestionTransformer = (data: any): CsvFileInput[] => {
             tempArray?.push(x);
         }
     });
-    const mcqQuestions = [] as CsvFileInput[];
+    const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
         mcqQuestions?.push({
             Type: "SHORT",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
-            Question:  x?.__EMPTY_3,
+            Question: x?.__EMPTY_3,
             Answer: x?.__EMPTY_4,
-            AnswerImage:"",
+            AnswerImage: "",
             IsCorrect: "TRUE",
             QuestionId: x?.__EMPTY_1,
             IsMcqQuestionImage: "FALSE",
-            QuestionImage:  "",
+            QuestionImage: "",
             Marks: x?.__EMPTY_5 ?? 1,
             Counter: "",
             Additional: "",

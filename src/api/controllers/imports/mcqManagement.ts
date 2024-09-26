@@ -24,7 +24,7 @@ export const createMCQsQuestion = async (data: CreateMCQsInput) => {
           importId: true
         }
       });
-      const importIdsFromDB = questions?.map(question => question?.importId) as string[];
+      const importIdsFromDB = questions?.map((question: any) => question?.importId) as string[];
       data?.MCQsAnswers?.forEach(answer => {
         for (let i = 0; i < importIdsFromDB?.length; i++) {
           if (answer?.importId === importIdsFromDB[i]) {
@@ -72,7 +72,7 @@ const MCQsFailedHistory = async (failedQuestions: Question[], failedAnswers: Ans
     }
   });
   for (let i = 0; i < data?.MCQsAnswers?.length; i++) {
-    const answer = answers?.find(answer => answer?.importId === data?.MCQsAnswers[i]?.importId);
+    const answer = answers?.find((answer: any) => answer?.importId === data?.MCQsAnswers[i]?.importId);
     if (!_?.isEmpty(answer)) {
       failedAnswers.push(data?.MCQsAnswers[i]);
     }
@@ -82,7 +82,7 @@ const MCQsFailedHistory = async (failedQuestions: Question[], failedAnswers: Ans
 
 export const createMultiShortQuestion = async (data: CreateMultipleShortInput) => {
   try {
-    const { ShortAnswers, ShortQuestions} = data;
+    const { ShortAnswers, ShortQuestions } = data;
     const newQuestions = await prisma.question.createMany({
       data: ShortQuestions
     });
@@ -100,7 +100,7 @@ export const createMultiShortQuestion = async (data: CreateMultipleShortInput) =
           importId: true
         }
       });
-      const importIdsFromDB = questions?.map(question => question?.importId) as string[];
+      const importIdsFromDB = questions?.map((question: any) => question?.importId) as string[];
       data?.ShortAnswers?.forEach(answer => {
         for (let i = 0; i < importIdsFromDB?.length; i++) {
           if (answer?.importId === importIdsFromDB[i]) {
@@ -148,7 +148,7 @@ const MultiShortFailedHistory = async (failedQuestions: Question[], failedAnswer
     }
   });
   for (let i = 0; i < data?.ShortAnswers?.length; i++) {
-    const answer = answers?.find(answer => answer?.importId === data?.ShortAnswers[i]?.importId);
+    const answer = answers?.find((answer: any) => answer?.importId === data?.ShortAnswers[i]?.importId);
     if (!_?.isEmpty(answer)) {
       failedAnswers.push(data?.ShortAnswers[i]);
     }
@@ -175,7 +175,7 @@ export const createShortQuestion = async (data: CreateShortQuestionsInput) => {
           importId: true
         }
       });
-      const importIdsFromDB = questions?.map(question => question?.importId) as string[];
+      const importIdsFromDB = questions?.map((question: any) => question?.importId) as string[];
       data?.ShortAnswers?.forEach(answer => {
         for (let i = 0; i < importIdsFromDB?.length; i++) {
           if (answer?.importId === importIdsFromDB[i]) {
@@ -223,7 +223,7 @@ const ShortQuestionsFailedHistory = async (failedQuestions: Question[], failedAn
     }
   });
   for (let i = 0; i < data?.ShortAnswers?.length; i++) {
-    const answer = answers?.find(answer => answer?.importId === data?.ShortAnswers[i]?.importId);
+    const answer = answers?.find((answer: any) => answer?.importId === data?.ShortAnswers[i]?.importId);
     if (!_?.isEmpty(answer)) {
       failedAnswers.push(data?.ShortAnswers[i]);
     }
@@ -251,7 +251,7 @@ export const createSequenceQuestion = async (data: CreateSequenceInput) => {
           importId: true
         }
       });
-      const importIdsFromDB = questions?.map(question => question?.importId) as string[];
+      const importIdsFromDB = questions?.map((question: any) => question?.importId) as string[];
       data?.SequenceAnswers?.forEach(answer => {
         for (let i = 0; i < importIdsFromDB?.length; i++) {
           if (answer?.importId === importIdsFromDB[i]) {
@@ -300,7 +300,7 @@ const createSequenceQuestionsFailedHistory = async (failedQuestions: Question[],
     }
   });
   for (let i = 0; i < data?.SequenceAnswers?.length; i++) {
-    const answer = answers?.find(answer => answer?.importId === data?.SequenceAnswers[i]?.importId);
+    const answer: any = answers?.find((answer: any) => answer?.importId === data?.SequenceAnswers[i]?.importId);
     if (!_?.isEmpty(answer)) {
       failedAnswers.push(data?.SequenceAnswers[i]);
     }
@@ -311,6 +311,10 @@ const createSequenceQuestionsFailedHistory = async (failedQuestions: Question[],
 export const createLongQuestion = async (data: CreateLongQuestionsInput) => {
   try {
     const { LongAnswers, LongQuestions } = data;
+
+    console.log("longquestions created", LongQuestions)
+
+
     const newQuestions = await prisma.question.createMany({
       data: LongQuestions
     });
@@ -327,7 +331,7 @@ export const createLongQuestion = async (data: CreateLongQuestionsInput) => {
           importId: true
         }
       });
-      const importIdsFromDB = questions?.map(question => question?.importId) as string[];
+      const importIdsFromDB = questions?.map((question: any) => question?.importId) as string[];
       data?.LongAnswers?.forEach(answer => {
         for (let i = 0; i < importIdsFromDB?.length; i++) {
           if (answer?.importId === importIdsFromDB[i]) {
@@ -375,7 +379,7 @@ const LongQuestionsFailedHistory = async (failedQuestions: Question[], failedAns
     }
   });
   for (let i = 0; i < data?.LongAnswers?.length; i++) {
-    const answer = answers?.find(answer => answer?.importId === data?.LongAnswers[i]?.importId);
+    const answer = answers?.find((answer: any) => answer?.importId === data?.LongAnswers[i]?.importId);
     if (!_?.isEmpty(answer)) {
       failedAnswers.push(data?.LongAnswers[i]);
     }

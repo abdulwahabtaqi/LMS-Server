@@ -208,7 +208,7 @@ const fetchReservedQuestions = async (userId: string): Promise<string[]> => {
             }
         });
         console.log("questionsToCheck:::", reservedQuestions)
-        return reservedQuestions?.map((question) => question?.questionsId ?? "");
+        return reservedQuestions?.map((question: any) => question?.questionsId ?? "");
     } catch (error) {
         console.log("fetchReservedQuestions::error", JSON?.stringify(error));
         return [];

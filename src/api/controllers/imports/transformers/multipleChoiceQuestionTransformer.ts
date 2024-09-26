@@ -1,6 +1,6 @@
 import { CsvFileInput } from "../types";
 
-export const multipleChoiceQuestionTransformer = (data: any): CsvFileInput[] => {
+export const multipleChoiceQuestionTransformer = (data: any): any[] => {
     const tempArray = [] as any;
     data?.forEach((x: any) => {
         const keys = Object?.values(x);
@@ -8,7 +8,7 @@ export const multipleChoiceQuestionTransformer = (data: any): CsvFileInput[] => 
             tempArray?.push(x);
         }
     });
-    const mcqQuestions = [] as CsvFileInput[];
+    const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
         console.log(convertAnswersToArray(x?.__EMPTY_16?.toString()?.toLowerCase()))
         // a

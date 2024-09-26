@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const CreateQuestionHandler = async (req: Request, res: Response) => {
     try {
-        const { difficultyLevel, question, subTopicId, type,marks  } = req?.body as Question;
+        const { difficultyLevel, question, subTopicId, type, marks } = req?.body as Question;
         const subTopic = await prisma.subTopic.findUnique({
             where: {
                 id: subTopicId
@@ -28,11 +28,11 @@ export const CreateQuestionHandler = async (req: Request, res: Response) => {
         const newQuestion = await prisma.question.create({
             data: {
                 difficultyLevel,
-                question:question?.toLowerCase() as string,
+                question: question?.toLowerCase() as string,
                 subTopicId,
                 type,
-                marks:parseInt(marks?.toString()),
-                importId:uuidv4()
+                marks: parseInt(marks?.toString()),
+                importId: uuidv4()
             }
         });
         return ApiResponse(true, "Question Created Successfully", newQuestion, 201, res);

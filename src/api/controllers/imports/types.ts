@@ -13,7 +13,7 @@ export interface FileInput {
 }
 export interface CsvFileInput {
     Type: string;
-    DifficultyLevel: string;
+    difficultyLevel: string;
     Question: string;
     Answer: string;
     IsCorrect: string;
@@ -22,7 +22,7 @@ export interface CsvFileInput {
     Counter: string;
     AnswerImage: string;
     QuestionImage: string;
-    IsMcqQuestionImage:string;
+    IsMcqQuestionImage: string;
     Additional: string;
 }
 
@@ -45,7 +45,7 @@ export interface CreateFillInBlankInput {
 export interface CreateQuestionsResponse {
     status: boolean;
     message: string;
-    failed:FailedQuestionsAnswers
+    failed: FailedQuestionsAnswers
 }
 
 export interface FailedQuestionsAnswers {
