@@ -131,7 +131,16 @@ model Question {
   importId          String             @unique
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
+
   // @@unique([subTopicId, question])
+}
+
+model Image {
+  id         String   @id @default(uuid())
+  url        String
+  questionId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Answer {

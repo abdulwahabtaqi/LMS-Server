@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./app/dist",
-    "lib": [
-      "es2020"
-    ],
+    "lib": ["es2020"],
     "target": "es6",
     "rootDir": "./src",
     "emitDecoratorMetadata": true,
@@ -30,16 +28,10 @@
     "useUnknownInCatchVariables": false,
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "tslib": [
-        "node_modules/tslib/tslib.d.ts"
-      ]
+      "@/*": ["./*"],
+      "tslib": ["node_modules/tslib/tslib.d.ts"]
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

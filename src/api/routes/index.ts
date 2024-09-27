@@ -12,7 +12,7 @@ import question from './question';
 import answer from './answer';
 import imports from './imports';
 import exporter from './exports';
-import csv from './csvSample';
+import image from './image';
 
 
 import { Authentication, Authorization } from "@/middlewares";
@@ -28,6 +28,6 @@ router.use('/question', Authentication, Authorization(["admin"]), question);
 router.use('/answer', Authentication, Authorization(["admin"]), answer);
 router.use('/imports', imports);
 router.use('/exporter', Authentication, Authorization(["admin"]), exporter);
-router.use('/csv', csv);
+router.use('/image', Authentication, Authorization(["admin"]), image);
 
 export default router;
