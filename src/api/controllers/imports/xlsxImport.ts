@@ -16,11 +16,24 @@ import { longQuestionTransformer } from './transformers/longQuestionTransformer'
 export const XlsxImportHandler = async (req: Request, res: Response) => {
     try {
         const { subTopicId } = req?.body as { subTopicId: string };
+        console.log("hello")
+        console.log(subTopicId)
+        const file = req.file
         const { path, originalname } = req.file as FileInput;
+        if (!subTopicId) {
+            return res.status(400).json({ status: false, message: 'subTopicId is required' });
+        }
+
         console.log("path", path);
+        if (!file) {
+            return res.status(400).json({ status: false, message: 'No file uploaded' });
+        }
         if (!path) {
             return res?.status(400)?.json({ status: false, message: 'No file path provided' });
         }
+        const filePath = file.path;
+        console.log("File uploaded at path:", filePath);
+
 
         const csvData: any[] = [];
         const workbook = XLSX?.readFile(path);
