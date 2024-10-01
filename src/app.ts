@@ -4,24 +4,19 @@ dotenv.config();
 import cors from 'cors';
 import helmet from 'helmet';
 import { json } from 'body-parser';
+const app = express();
 import { v2 as cloudinary } from 'cloudinary';
 import routes from './api/routes';
-import bodyParser from 'body-parser'
-import fileUpload from "express-fileupload"
-const app = express();
-app.use(json({ limit: '50mb' }));
 app.use(express.json());
+// import bodyParser from 'body-parser'
+// import fileUpload from "express-fileupload"
+app.use(json({ limit: '50mb' }));
+
 const port = process.env.PORT;
 // app.use(cors({ origin: true, credentials: true }));
-app.use(cors({
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
+app.use(cors({ origin: true, credentials: true }));
+
 app.use(helmet());
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(fileUpload())
 
 
 cloudinary.config({

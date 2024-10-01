@@ -14,9 +14,10 @@ import { multipleTrueFalseQuestionTransformer } from './transformers/multipleTru
 import { shortQuestionTransformer } from './transformers/shortQuestionTransformer';
 import { longQuestionTransformer } from './transformers/longQuestionTransformer';
 export const XlsxImportHandler = async (req: Request, res: Response) => {
+
     try {
         const { subTopicId } = req?.body as { subTopicId: string };
-        console.log("hello")
+
         console.log(subTopicId)
         const file = req.file
         const { path, originalname } = req.file as FileInput;
@@ -62,6 +63,7 @@ export const XlsxImportHandler = async (req: Request, res: Response) => {
         await multipleShortDbCreation(multipleTrueFalse);
 
         const transformedShortQuestions = shortQuestionTransformer(data);
+
         const shortQuestions = createShortQuestions(transformedShortQuestions, subTopicId);
         console.log("transformedShortQuestions===>", transformedShortQuestions);
         await shortDbCreation(shortQuestions);
@@ -121,6 +123,7 @@ export const CreateMCQs = (csvData: any[], subTopicId: string) => {
     const MCQsAnswers: Answer[] = [];
     const processedMCQIDs = new Set<string>();
     csvData?.filter(x => x?.Type === "MCQ")?.forEach(x => {
+
         const MCQID = x?.QuestionId;
         if (!processedMCQIDs?.has(MCQID)) {
             const question = {
@@ -130,7 +133,7 @@ export const CreateMCQs = (csvData: any[], subTopicId: string) => {
                 difficultyLevel: x?.QuestionId.toUpperCase(),
                 type: x?.Type,
                 importId: uuidv4(),
-
+                questionImage: x?.Answer,
                 mcqImage: x?.IsMcqQuestionImage === "TRUE" ? true : false,
             } as Question;
             MCQsQuestions?.push(question);
@@ -165,6 +168,7 @@ export const CreateSequenceQuestions = (csvData: any[], subTopicId: string) => {
                 difficultyLevel: x?.QuestionId.toUpperCase(),
                 type: x?.Type,
                 importId: uuidv4(),
+                questionImage: x?.Answer,
                 mcqImage: x?.IsMcqQuestionImage === "TRUE" ? true : false,
             } as Question;
             SequenceQuestions?.push(question);
@@ -201,7 +205,7 @@ export const CreateMultipleShortQuestions = (csvData: any[], subTopicId: string)
                 type: x?.Type,
                 importId: uuidv4(),
                 answerCount: parseInt(x?.Counter),
-                questionImage: x?.QuestionImage || '',
+                questionImage: x?.Answer || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIPLSHORT")?.forEach(y => {
@@ -236,7 +240,7 @@ export const CreateMultipleTrueFalseQuestions = (csvData: any[], subTopicId: str
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 answerCount: 0,
-                questionImage: x?.QuestionImage || '',
+                questionImage: x?.Answer || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIPLETRUEFALSE")?.forEach(y => {
@@ -271,7 +275,7 @@ export const CreateFillInTheBlankQuestions = (csvData: any[], subTopicId: string
                 type: x?.Type,
                 importId: uuidv4(),
                 answerCount: 0,
-                questionImage: x?.QuestionImage || '',
+                questionImage: x?.Answer || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "FILLINTHEBLANK")?.forEach(y => {
@@ -306,7 +310,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: any[], subTopicId: s
                 type: x?.Type,
                 importId: uuidv4(),
                 answerCount: 0,
-                questionImage: x?.QuestionImage || '',
+                questionImage: x?.Answer || '',
             } as Question;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIFILLINTHEBLANK")?.forEach(y => {
@@ -330,6 +334,7 @@ export const createShortQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     csvData?.filter(x => x?.Type === "SHORT")?.forEach(x => {
+
         const ImportUniqueId = uuidv4() + "-" + Math.random();
         ShortQuestions?.push({
             importId: ImportUniqueId,
@@ -337,6 +342,7 @@ export const createShortQuestions = (csvData: any[], subTopicId: string) => {
             marks: parseInt(x?.Marks),
             question: x?.DifficultyLevel?.toLowerCase(),
             difficultyLevel: x?.QuestionId.toUpperCase(),
+            questionImage: x?.Answer,
             type: x?.Type,
         } as Question);
         ShortAnswers?.push({
@@ -361,6 +367,7 @@ export const createLongQuestions = (csvData: any, subTopicId: any) => {
             marks: parseInt(x?.Marks),
             question: x?.DifficultyLevel?.toLowerCase(),
             difficultyLevel: x?.QuestionId.toUpperCase(),
+            questionImage: x?.Answer,
             type: x?.Type,
         } as any);
 

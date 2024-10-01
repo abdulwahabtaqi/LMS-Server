@@ -13,6 +13,7 @@ import answer from './answer';
 import imports from './imports';
 import exporter from './exports';
 import image from './image';
+import test from './Test';
 
 
 import { Authentication, Authorization } from "@/middlewares";
@@ -29,5 +30,6 @@ router.use('/answer', Authentication, Authorization(["admin"]), answer);
 router.use('/imports', imports);
 router.use('/exporter', Authentication, Authorization(["admin"]), exporter);
 router.use('/image', Authentication, Authorization(["admin"]), image);
+router.use('/test', test);
 
 export default router;
