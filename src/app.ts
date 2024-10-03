@@ -7,13 +7,12 @@ import { json } from 'body-parser';
 const app = express();
 import { v2 as cloudinary } from 'cloudinary';
 import routes from './api/routes';
-app.use(express.json());
-// import bodyParser from 'body-parser'
-// import fileUpload from "express-fileupload"
+app.use(express.json({
+    limit: "20mb"
+}));
 app.use(json({ limit: '50mb' }));
 
 const port = process.env.PORT;
-// app.use(cors({ origin: true, credentials: true }));
 app.use(cors({ origin: true, credentials: true }));
 
 app.use(helmet());

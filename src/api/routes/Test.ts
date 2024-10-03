@@ -20,6 +20,15 @@ router.get('/questions', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching users.' })
     }
 });
+
+router.get('/history', async (req, res) => {
+    try {
+        const questions = await prisma.exportedQuestion.findMany();
+        res.json({ total: questions?.length, questions });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while fetching users.' })
+    }
+});
 router.delete('/questions', async (req, res) => {
     try {
         await prisma.question.deleteMany(); // Deletes all questions         

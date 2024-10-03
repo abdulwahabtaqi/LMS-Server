@@ -140,7 +140,7 @@ export const CreateMCQs = (csvData: any[], subTopicId: string) => {
             csvData?.filter(x => x?.Type === "MCQ")?.forEach(y => {
                 if (y?.QuestionId === MCQID) {
                     MCQsAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         importId: question?.importId,
@@ -175,7 +175,7 @@ export const CreateSequenceQuestions = (csvData: any[], subTopicId: string) => {
             csvData?.filter(x => x?.Type === "SEQUENCE")?.forEach(y => {
                 if (y?.QuestionId === MCQID) {
                     SequenceAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         importId: question?.importId,
@@ -211,7 +211,7 @@ export const CreateMultipleShortQuestions = (csvData: any[], subTopicId: string)
             csvData?.filter(x => x?.Type === "MULTIPLSHORT")?.forEach(y => {
                 if (y?.QuestionId === multipleSHortQuestionId) {
                     ShortAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         answerImage: y?.AnswerImage || '',
@@ -246,7 +246,7 @@ export const CreateMultipleTrueFalseQuestions = (csvData: any[], subTopicId: str
             csvData?.filter(x => x?.Type === "MULTIPLETRUEFALSE")?.forEach(y => {
                 if (y?.QuestionId === multipleSHortQuestionId) {
                     ShortAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         answerImage: y?.AnswerImage || '',
@@ -281,7 +281,7 @@ export const CreateFillInTheBlankQuestions = (csvData: any[], subTopicId: string
             csvData?.filter(x => x?.Type === "FILLINTHEBLANK")?.forEach(y => {
                 if (y?.QuestionId === fillInTheBlanksQuestionId) {
                     ShortAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         answerImage: y?.AnswerImage || '',
@@ -316,7 +316,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: any[], subTopicId: s
             csvData?.filter(x => x?.Type === "MULTIFILLINTHEBLANK")?.forEach(y => {
                 if (y?.QuestionId === fillInTheBlanksQuestionId) {
                     ShortAnswers?.push({
-                        answer: y?.Answer,
+                        answer: y?.Question,
                         isCorrect: y?.IsCorrect,
                         type: y?.Type,
                         answerImage: y?.AnswerImage || '',
@@ -346,7 +346,7 @@ export const createShortQuestions = (csvData: any[], subTopicId: string) => {
             type: x?.Type,
         } as Question);
         ShortAnswers?.push({
-            answer: x?.Answer,
+            answer: x?.Question,
             type: x?.Type,
             importId: ImportUniqueId,
         } as Answer);
@@ -354,6 +354,7 @@ export const createShortQuestions = (csvData: any[], subTopicId: string) => {
     return { ShortQuestions, ShortAnswers } as CreateShortQuestionsInput;
 }
 export const createLongQuestions = (csvData: any, subTopicId: any) => {
+    console.log("csv", csvData)
     const LongQuestions: any[] = [];
     const LongAnswers: any[] = [];
 
@@ -371,8 +372,9 @@ export const createLongQuestions = (csvData: any, subTopicId: any) => {
             type: x?.Type,
         } as any);
 
+
         LongAnswers.push({
-            answer: x?.Answer,
+            answer: x?.Question,
             type: x?.Type,
             importId: ImportUniqueId,
         } as any);
