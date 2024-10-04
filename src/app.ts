@@ -11,7 +11,15 @@ app.use(express.json({
     limit: "20mb"
 }));
 const port = process.env.PORT;
-app.use(cors({ origin: true, credentials: true }));
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
+
 app.use(helmet());
 import routes from './api/routes';
 
