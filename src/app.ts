@@ -15,14 +15,17 @@ app.use(json({ limit: '50mb' }));
 const port = process.env.PORT;
 // app.use(cors({ origin: true, credentials: true }));
 
-const corsOptions = {
-    origin: 'https://lms-client-hazel.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
 
-};
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Allow credentials if needed
+}));
+
+// Handle preflight requests
+app.options('*', cors());
+
 
 
 app.use(helmet());
