@@ -206,13 +206,6 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/helmet@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@types/helmet/-/helmet-4.0.0.tgz#af7af46de26abe368b85360769ae9938bfb2318a"
-  integrity sha512-ONIn/nSNQA57yRge3oaMQESef/6QhoeX7llWeDli0UZIfz8TQMkfNPTXA8VnnyeA1WUjG2pGqdjEIueYonMdfQ==
-  dependencies:
-    helmet "*"
-
 "@types/http-errors@*":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@types/http-errors/-/http-errors-2.0.4.tgz#7eb47726c391b7345a6ec35ad7f4de469cf5ba4f"
@@ -917,10 +910,10 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
-helmet@*, helmet@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/helmet/-/helmet-8.0.0.tgz#05370fb1953aa7b81bd0ddfa459221247be6ea5c"
-  integrity sha512-VyusHLEIIO5mjQPUI1wpOAEu+wl6Q0998jzTxqUYGE45xCIcAxy3MsbEK/yyJUJ3ADeMoB6MornPH6GMWAf+Pw==
+helmet@^7.1.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-7.2.0.tgz#8b2dcc425b4a46c88f6953481b40453cbe66b167"
+  integrity sha512-ZRiwvN089JfMXokizgqEPXsl2Guk094yExfoDXR0cBYWxtBbaSww/w+vT4WEJsBW2iTUi1GgZ6swmoug3Oy4Xw==
 
 http-errors@2.0.0:
   version "2.0.0"
