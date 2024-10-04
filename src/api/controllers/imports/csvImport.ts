@@ -96,7 +96,7 @@ const longDbCreation = async (data: CreateLongQuestionsInput) => {
     await createLongQuestion(data);
 }
 
-export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateMCQs = (csvData: any[], subTopicId: string) => {
     const MCQsQuestions: Question[] = [];
     const MCQsAnswers: Answer[] = [];
     const processedMCQIDs = new Set<string>();
@@ -111,7 +111,7 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
                 difficultyLevel: x?.DifficultyLevel,
                 type: x?.Type,
                 mcqImage: x?.IsMcqQuestionImage === "TRUE" ? true : false,
-            } as Question;
+            } as any;
             MCQsQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MCQ")?.forEach(y => {
                 if (y?.QuestionId === MCQID) {
@@ -129,7 +129,7 @@ export const CreateMCQs = (csvData: CsvFileInput[], subTopicId: string) => {
     });
     return { MCQsQuestions, MCQsAnswers } as CreateMCQsInput;
 }
-export const CreateSequenceQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateSequenceQuestions = (csvData: any[], subTopicId: string) => {
     const SequenceQuestions: Question[] = [];
     const SequenceAnswers: Answer[] = [];
     const processedMCQIDs = new Set<string>();
@@ -163,7 +163,7 @@ export const CreateSequenceQuestions = (csvData: CsvFileInput[], subTopicId: str
     });
     return { SequenceQuestions, SequenceAnswers } as CreateSequenceInput;
 }
-export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateMultipleShortQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     const processedMultipleShortQuestionIds = new Set<string>();
@@ -198,7 +198,7 @@ export const CreateMultipleShortQuestions = (csvData: CsvFileInput[], subTopicId
 
     return { ShortQuestions, ShortAnswers } as CreateMultipleShortInput;
 }
-export const CreateMultipleShortV2Questions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateMultipleShortV2Questions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     const processedMultipleShortQuestionIds = new Set<string>();
@@ -234,7 +234,7 @@ export const CreateMultipleShortV2Questions = (csvData: CsvFileInput[], subTopic
 
     return { ShortQuestions, ShortAnswers } as CreateMultipleShortInput;
 }
-export const CreateMultipleTrueFalseQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateMultipleTrueFalseQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     const processedMultipleShortQuestionIds = new Set<string>();
@@ -269,7 +269,7 @@ export const CreateMultipleTrueFalseQuestions = (csvData: CsvFileInput[], subTop
 
     return { ShortQuestions, ShortAnswers } as CreateMultipleShortInput;
 }
-export const CreateFillInTheBlankQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateFillInTheBlankQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     const processFillInTheBlanksQuestions = new Set<string>();
@@ -304,7 +304,7 @@ export const CreateFillInTheBlankQuestions = (csvData: CsvFileInput[], subTopicI
 
     return { ShortQuestions, ShortAnswers } as CreateFillInBlankInput;
 }
-export const CreateMultiFillInTheBlankQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const CreateMultiFillInTheBlankQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     const processFillInTheBlanksQuestions = new Set<string>();
@@ -339,7 +339,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: CsvFileInput[], subT
 
     return { ShortQuestions, ShortAnswers } as CreateFillInBlankInput;
 }
-export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const createShortQuestions = (csvData: any[], subTopicId: string) => {
     const ShortQuestions: Question[] = [];
     const ShortAnswers: Answer[] = [];
     csvData?.filter(x => x?.Type === "SHORT")?.forEach(x => {
@@ -360,7 +360,7 @@ export const createShortQuestions = (csvData: CsvFileInput[], subTopicId: string
     });
     return { ShortQuestions, ShortAnswers } as CreateShortQuestionsInput;
 }
-export const createLongQuestions = (csvData: CsvFileInput[], subTopicId: string) => {
+export const createLongQuestions = (csvData: any[], subTopicId: string) => {
     const LongQuestions: Question[] = [];
     const LongAnswers: Answer[] = [];
     csvData?.filter(x => x?.Type === "LONG")?.forEach(x => {
