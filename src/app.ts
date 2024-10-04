@@ -16,7 +16,7 @@ const port = process.env.PORT;
 // app.use(cors({ origin: true, credentials: true }));
 
 const corsOptions = {
-    origin: 'https://lms-client-hazel.vercel.app',
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
