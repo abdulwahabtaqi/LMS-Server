@@ -10,16 +10,8 @@ app.use(json({ limit: '50mb' }));
 app.use(express.json({
     limit: "20mb"
 }));
-const port = process.env.PORT || 5000;
-const corsOptions = {
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
-
+const port = process.env.PORT;
+app.use(cors({ origin: true, credentials: true }));
 app.use(helmet());
 import routes from './api/routes';
 
