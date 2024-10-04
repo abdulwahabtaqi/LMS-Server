@@ -20,6 +20,7 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
+
 };
 app.use(cors(corsOptions));
 
@@ -35,6 +36,12 @@ cloudinary.config({
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
+});
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
 
