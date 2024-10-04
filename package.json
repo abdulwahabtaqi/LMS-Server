@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "prisma generate --schema=./src/prisma/schema.prisma rimraf app/dist && tsc --build && tsc-alias",
+    "build": "prisma generate --schema=./src/prisma/schema.prisma rimraf dist && tsc --build && tsc-alias",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add app/dist",
+    "add-build": "git add dist",
     "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
     "start": "nodemon -r tsconfig-paths/register src/app.ts prisma generate --schema=./src/prisma/schema.prisma",
     "start:prod": "node app/dist/app.js",
