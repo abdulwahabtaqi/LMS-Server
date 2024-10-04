@@ -16,13 +16,12 @@ const port = process.env.PORT;
 // app.use(cors({ origin: true, credentials: true }));
 
 const corsOptions = {
-    origin: true,
+    origin: 'https://lms-client-hazel.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
 };
-
 app.use(cors(corsOptions));
+
 
 app.use(helmet());
 
@@ -32,6 +31,14 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY!,
     api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
+
+app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'https://lms-client-hazel.vercel.app');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.sendStatus(200);
+});
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
