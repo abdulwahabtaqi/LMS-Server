@@ -8,7 +8,7 @@
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
-    "start": "nodemon -r tsconfig-paths/register src/app.ts prisma generate --schema=./src/prisma/schema.prisma",
+    "start": "nodemon -r tsconfig-paths/register app/dist/app.js prisma generate --schema=./src/prisma/schema.prisma",
     "start:prod": "node app/dist/app.js",
     "prisma:generate": "prisma generate --schema=./src/prisma/schema.prisma",
     "prisma:reset": "prisma migrate reset --force --schema=./src/prisma/schema.prisma",
