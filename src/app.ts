@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import { json } from 'body-parser';
 const app = express();
 import { v2 as cloudinary } from 'cloudinary';
@@ -20,7 +20,7 @@ app.use(express.json({
 }));
 const port = process.env.PORT || 4000;
 
-app.use(helmet());
+// app.use(helmet());
 import routes from './api/routes';
 
 
