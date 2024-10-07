@@ -8,8 +8,10 @@ const app = express();
 import { v2 as cloudinary } from 'cloudinary';
 
 app.use(cors({
-    origin: true,
-    credentials: true
+    origin: 'http://localhost:3000',
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
 }));
 app.use(json({ limit: '50mb' }));
 app.use(express.json({
