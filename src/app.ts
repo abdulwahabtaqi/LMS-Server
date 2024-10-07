@@ -9,7 +9,8 @@ import { v2 as cloudinary } from 'cloudinary';
 
 app.use(cors({
     // origin: "https://lms-client-hazel.vercel.app",
-    origin: true,
+    origin: "http://localhost:3000",
+    // origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
