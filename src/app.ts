@@ -2,14 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
-import helmet from 'helmet';
+// import helmet from 'helmet';
 import { json } from 'body-parser';
 const app = express();
 import { v2 as cloudinary } from 'cloudinary';
 
 app.use(cors({
     // origin: "https://lms-client-hazel.vercel.app",
-    origin: "http://localhost:3000",
+    origin: true,
     // origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -21,7 +21,7 @@ app.use(express.json({
 }));
 const port = process.env.PORT || 4000;
 
-app.use(helmet());
+// app.use(helmet());
 import routes from './api/routes';
 
 
