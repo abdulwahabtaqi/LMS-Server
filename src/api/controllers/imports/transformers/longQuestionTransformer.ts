@@ -9,8 +9,10 @@ export const longQuestionTransformer = (data: any): any[] => {
             tempArray?.push(x);
         }
     });
+
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
+        console.log("yyy", x)
         mcqQuestions?.push({
             Type: "LONG",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
