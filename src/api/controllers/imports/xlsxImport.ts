@@ -133,7 +133,7 @@ export const CreateMCQs = (csvData: any[], subTopicId: string) => {
                 difficultyLevel: x?.QuestionId.toUpperCase(),
                 type: x?.Type,
                 importId: uuidv4(),
-                questionImage: x?.Answer,
+                questionImage: x?.QuestionImage,
                 mcqImage: x?.IsMcqQuestionImage === "TRUE" ? true : false,
             } as Question;
             MCQsQuestions?.push(question);
@@ -168,7 +168,7 @@ export const CreateSequenceQuestions = (csvData: any[], subTopicId: string) => {
                 difficultyLevel: x?.QuestionId.toUpperCase(),
                 type: x?.Type,
                 importId: uuidv4(),
-                questionImage: x?.Answer,
+                questionImage: x?.QuestionImage,
                 mcqImage: x?.IsMcqQuestionImage === "TRUE" ? true : false,
             } as Question;
             SequenceQuestions?.push(question);
@@ -231,17 +231,18 @@ export const CreateMultipleTrueFalseQuestions = (csvData: any[], subTopicId: str
     const processedMultipleShortQuestionIds = new Set<string>();
     csvData?.filter(x => x?.Type === "MULTIPLETRUEFALSE")?.forEach(x => {
         const multipleSHortQuestionId = x?.QuestionId;
+
         if (!processedMultipleShortQuestionIds?.has(multipleSHortQuestionId)) {
             const question = {
                 importId: uuidv4(),
                 subTopicId: subTopicId,
                 marks: parseInt(x?.Marks),
-                question: x?.Question,
-                difficultyLevel: x?.DifficultyLevel,
+                question: x?.DifficultyLevel.toLowerCase(),
+                difficultyLevel: x?.QuestionId.toUpperCase(),
                 type: x?.Type,
                 answerCount: 0,
-                questionImage: x?.Answer || '',
-            } as Question;
+                questionImage: x?.QuestionImage || '',
+            } as any;
             ShortQuestions?.push(question);
             csvData?.filter(x => x?.Type === "MULTIPLETRUEFALSE")?.forEach(y => {
                 if (y?.QuestionId === multipleSHortQuestionId) {
@@ -301,6 +302,7 @@ export const CreateMultiFillInTheBlankQuestions = (csvData: any[], subTopicId: s
     const processFillInTheBlanksQuestions = new Set<string>();
     csvData?.filter(x => x?.Type === "MULTIFILLINTHEBLANK")?.forEach(x => {
         const fillInTheBlanksQuestionId = x?.QuestionId;
+        console.log("MULTIFILLINTHEBLANK", x)
         if (!processFillInTheBlanksQuestions?.has(fillInTheBlanksQuestionId)) {
             const question = {
                 subTopicId: subTopicId,

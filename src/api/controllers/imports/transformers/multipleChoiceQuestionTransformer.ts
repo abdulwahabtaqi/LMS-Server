@@ -11,7 +11,7 @@ export const multipleChoiceQuestionTransformer = (data: any): any[] => {
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
         console.log(convertAnswersToArray(x?.__EMPTY_16?.toString()?.toLowerCase()))
-        // a
+
         mcqQuestions?.push({
             Type: "MCQ",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
@@ -21,7 +21,7 @@ export const multipleChoiceQuestionTransformer = (data: any): any[] => {
             IsCorrect: convertAnswersToArray(x?.__EMPTY_16?.toString()?.toLowerCase())?.includes("a") ? "TRUE" : "FALSE",
             QuestionId: x?.__EMPTY_1,
             IsMcqQuestionImage: "FALSE",
-            QuestionImage: "",
+            QuestionImage: x?.__EMPTY_16 || "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: "",
             Additional: "",

@@ -13,7 +13,7 @@ export const sequenceQuestionTransformer = (data: any): any[] => {
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
 
-        // a
+
         mcqQuestions?.push({
             Type: "SEQUENCE",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
@@ -23,7 +23,7 @@ export const sequenceQuestionTransformer = (data: any): any[] => {
             IsCorrect: x?.__EMPTY_16?.toString()?.toLowerCase() == "a" ? "TRUE" : "FALSE",
             QuestionId: x?.__EMPTY_1,
             IsMcqQuestionImage: "FALSE",
-            QuestionImage: "",
+            QuestionImage: x?.__EMPTY_16 || "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: (getCounter(x?.__EMPTY_16)?.indexOf("a") + 1)?.toString(),
             Additional: "",

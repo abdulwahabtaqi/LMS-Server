@@ -11,7 +11,9 @@ export const singleChoiceQuestionTransformer = (data: any): any[] => {
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
 
-        // a
+
+
+
         mcqQuestions?.push({
             Type: "MCQ",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
@@ -21,7 +23,7 @@ export const singleChoiceQuestionTransformer = (data: any): any[] => {
             IsCorrect: x?.__EMPTY_16?.toString()?.toLowerCase() == "a" ? "TRUE" : "FALSE",
             QuestionId: x?.__EMPTY_1,
             IsMcqQuestionImage: "FALSE",
-            QuestionImage: "",
+            QuestionImage: x?.__EMPTY_14 || "",
             Marks: x?.__EMPTY_17 ?? 1,
             Counter: "",
             Additional: "",

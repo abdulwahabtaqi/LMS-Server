@@ -11,6 +11,7 @@ export const multipleTrueFalseQuestionTransformer = (data: any): any[] => {
     });
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
+
         mcqQuestions?.push({
             Type: "MULTIPLETRUEFALSE",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),
@@ -20,7 +21,7 @@ export const multipleTrueFalseQuestionTransformer = (data: any): any[] => {
             IsCorrect: x?.__EMPTY_6 === true ? "TRUE" : "FALSE",
             QuestionId: x?.__EMPTY_1,
             IsMcqQuestionImage: "FALSE",
-            QuestionImage: "",
+            QuestionImage: x?.__EMPTY_6 || "",
             Marks: x?.__EMPTY_7 ?? 1,
             Counter: "",
             Additional: "",

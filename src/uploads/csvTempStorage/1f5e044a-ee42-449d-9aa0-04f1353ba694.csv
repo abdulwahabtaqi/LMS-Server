@@ -1,0 +1,18 @@
+Long Answers Questions,,,,,
+Long Answers Code,Question Type code,Difficulty Level,Questions,Answers,questionImage
+1011,X515,Easy,Explain the concept of closure in JavaScript and provide an example.,,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X3214,Easy,"Describe the differences between 'let', 'const', and 'var' in variable declarations.",,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X314,Easy,How does prototypal inheritance work in JavaScript?,,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X8463,Medium,Discuss the event delegation pattern and its benefits.,,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X23014,Easy,Explain the purpose of the 'this' keyword in JavaScript.,,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X9630,Hard,"What is AJAX, and how does it work in web development?",,https://res.cloudinary.com/drwdqdqbg/image/upload/v1727807478/mcqs/ovlpvbl7t4d6zsekwa58.webp
+1011,X9630,Easy,Compare and contrast synchronous and asynchronous JavaScript.,,
+1011,X2001,Easy,How does the 'async/await' syntax improve asynchronous code readability?,,
+1011,X201,Hard,Pyhton will ve,,https://images.unsplash.com/photo-1519223400710-6da9e1b777ea?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+1011,X9300,Easy,Explain the concept of hoisting in JavaScript.,,
+1011,X2014,Easy,"Describe the purpose and usage of the 'map', 'filter', and 'reduce' array methods.",,
+1011,X6901,Medium,Discuss the differences between 'null' and 'undefined' in JavaScript.,,
+1011,X1403,Easy,Explain the 'Promise' object and its role in handling asynchronous operations.,,
+1011,X6901,Easy,How can you prevent cross-site scripting (XSS) attacks in JavaScript?,,
+1011,X0321,Hard,Describe the principles of event-driven programming in JavaScript.,,https://res.cloudinary.com/drwdqdqbg/image/upload/v1727896133/mcqs/pehlalqkp8jykwogxfzb.jpg
+1011,X134,Medium,Explain the concept of hoisting in JavaScript.,,

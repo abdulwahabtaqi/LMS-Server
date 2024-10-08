@@ -3,6 +3,7 @@ import { Router } from 'express';
 
 const router = Router();
 
+
 router.get('/users', async (req, res) => {
     try {
         const users = await prisma.user.findMany();

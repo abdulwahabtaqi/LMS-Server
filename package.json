@@ -7,7 +7,7 @@
     "build": "prisma generate --schema=./src/prisma/schema.prisma rimraf dist && tsc --build && tsc-alias",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
-    "start:dev": "nodemon -r tsconfig-paths/register app/dist/app.js",
+    "start:dev": "nodemon -r tsconfig-paths/register src/app.ts",
     "start": "prisma generate --schema=./src/prisma/schema.prisma && node -r tsconfig-paths/register app/dist/app.js",
     "start:prod": "node -r tsconfig-paths/register app/dist/app.js",
     "prisma:generate": "prisma generate --schema=./src/prisma/schema.prisma",
