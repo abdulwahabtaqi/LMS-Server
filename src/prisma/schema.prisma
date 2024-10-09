@@ -52,10 +52,12 @@ model User {
   email     String?            @unique
   password  String?
   name      String?
-  role      UserRole?          @default(TEACHER)
+  role      UserRole?          @default(USER)
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
   reserved  ExportedQuestion[]
+   approved  Boolean            @default(false)   
+  status    Status             @default(INACTIVE)
 }
 
 model School {

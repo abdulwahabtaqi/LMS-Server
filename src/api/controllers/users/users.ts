@@ -69,3 +69,34 @@ export const updateUser = async (req: Request, res: Response) => {
         return ApiResponse(false, "Error updating user", error.message, 500, res);
     }
 };
+export const approveUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const user = await prisma.user.update({
+            where: { id },
+            data: {
+                approved: true,
+            }
+        });
+        if (!user) {
+            return ApiResponse(false, "User not found", null, 404, res);
+        }
+        return ApiResponse(true, "User approved successfully", user, 200, res);
+    } catch (error) {
+        console.error("Error updating user:", error);
+        return ApiResponse(false, "Error approving user", error.message, 500, res);
+    }
+};
+export const unapprovedUser = async (req: Request, res: Response) => {
+    try {
+        const users = await prisma.user.findMany({
+            where: {
+                approved: false,
+            },
+        });
+        return ApiResponse(true, "Unapproved users retrieved successfully", users, 200, res);
+    } catch (error) {
+        console.error("Error retrieving unapproved users:", error);
+        return ApiResponse(false, "Error retrieving unapproved users", error.message, 500, res);
+    }
+};

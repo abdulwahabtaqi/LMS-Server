@@ -15,7 +15,7 @@ export interface Registration {
 export enum UserRole {
     ADMIN = "ADMIN",
     TEACHER = "TEACHER",
-    STUDENT = "STUDENT"
+    USER = "USER"
 }
 
 export interface JWTEncryptedData {
@@ -23,5 +23,5 @@ export interface JWTEncryptedData {
     email: string;
     name: string;
     role: string;
-    joinDate:Date;
+    joinDate: Date;
 }
