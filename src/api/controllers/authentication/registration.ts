@@ -32,13 +32,14 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
             }
         });
 
-        const token = jwt.sign(
-            { id: newUser.id, email: newUser.email, name: newUser.name, role: newUser.role, joinDate: newUser.createdAt } as JWTEncryptedData,
-            process.env.JWT_SECRET as string,
-            { expiresIn: '1d' }
-        );
+        // const token = jwt.sign(
+        //     { id: newUser.id, email: newUser.email, name: newUser.name, role: newUser.role, joinDate: newUser.createdAt } as JWTEncryptedData,
+        //     process.env.JWT_SECRET as string,
+        //     { expiresIn: '1d' }
+        // );
 
-        return ApiResponse(true, "Registration successful", token, 200, res);
+        return ApiResponse(true, "Registration successful", null, 200, res);
+        // return ApiResponse(true, "Registration successful", token, 200, res);
     } catch (error) {
         console.log("RegistrationHandler::error", JSON.stringify(error));
         return ApiResponse(false, "Validation Error", error, 500, res);
