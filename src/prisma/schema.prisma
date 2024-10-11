@@ -48,16 +48,30 @@ enum ExportedQuestionStatus {
 }
 
 model User {
-  id        String             @id @default(uuid())
-  email     String?            @unique
-  password  String?
-  name      String?
-  role      UserRole?          @default(USER)
-  createdAt DateTime           @default(now())
-  updatedAt DateTime           @updatedAt
-  reserved  ExportedQuestion[]
-   approved  Boolean            @default(false)   
-  status    Status             @default(INACTIVE)
+  id                String             @id @default(uuid())
+  email             String?            @unique
+  password          String?
+  name              String?
+  role              UserRole?          @default(USER)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  reserved          ExportedQuestion[]
+  approved          Boolean            @default(false)
+  status            Status             @default(INACTIVE)
+  sentRequests      ConnectionRequest[] @relation("SentRequests")
+  receivedRequests  ConnectionRequest[] @relation("ReceivedRequests")
+}
+
+model ConnectionRequest {
+  id          String   @id @default(uuid())
+  senderId    String
+  receiverId  String
+  status      String   
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sender      User     @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver    User     @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
 }
 
 model School {

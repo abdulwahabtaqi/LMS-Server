@@ -1,18 +1,23 @@
 import { Request, Response } from "express";
 import { prisma } from "@/shared/prisma";
 import { ApiResponse } from "@/shared";
+import bcrypt from 'bcryptjs';
+
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
-        const users = await prisma.user.findMany();
+        const users = await prisma.user.findMany({
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
         return ApiResponse(true, "Retrieved users", users, 200, res);
-
     } catch (error) {
         console.error("Error fetching users:", error);
-        return ApiResponse(false, "Error Fetching users", error, 200, res);
-
+        return ApiResponse(false, "Error Fetching users", error.message, 500, res);
     }
 };
+
 
 export const deleteUser = async (req: Request, res: Response) => {
     try {
@@ -52,15 +57,24 @@ export const getSingleUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const { name, email, role } = req.body;
+        const { name, email, role, password } = req.body;
+
+        let dataToUpdate: any = {
+            name,
+            email,
+            role,
+        };
+
+        if (password) {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(password, salt);
+            dataToUpdate.password = hash;
+        }
+
 
         const user = await prisma.user.update({
             where: { id },
-            data: {
-                name,
-                email,
-                role
-            }
+            data: dataToUpdate,
         });
 
         return ApiResponse(true, "User updated successfully", user, 200, res);
@@ -69,6 +83,7 @@ export const updateUser = async (req: Request, res: Response) => {
         return ApiResponse(false, "Error updating user", error.message, 500, res);
     }
 };
+
 export const approveUser = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
@@ -92,6 +107,8 @@ export const unapprovedUser = async (req: Request, res: Response) => {
         const users = await prisma.user.findMany({
             where: {
                 approved: false,
+            }, orderBy: {
+                createdAt: 'desc',
             },
         });
         return ApiResponse(true, "Unapproved users retrieved successfully", users, 200, res);

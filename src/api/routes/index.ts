@@ -14,6 +14,8 @@ import imports from './imports';
 import exporter from './exports';
 import image from './image';
 import users from './users';
+import connection from './connection';
+import teacher from './teacher';
 import test from './Test';
 
 
@@ -32,6 +34,8 @@ router.use('/imports', imports);
 router.use('/exporter', Authentication, Authorization(["admin"]), exporter);
 router.use('/image', Authentication, Authorization(["admin"]), image);
 router.use('/users', Authentication, Authorization(["admin"]), users);
+router.use('/teachers', Authentication, teacher);
+router.use('/connection', Authentication, connection);
 router.use('/test', test);
 
 export default router;
