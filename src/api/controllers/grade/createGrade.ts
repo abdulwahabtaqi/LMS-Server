@@ -24,7 +24,7 @@ export const CreateGradeHandler = async (req: Request, res: Response) => {
         }
         const newGrade = await prisma.grade.create({
             data: {
-                grade:grade?.toLowerCase(),
+                grade: grade?.toLowerCase(),
                 schoolId
             }
         });
