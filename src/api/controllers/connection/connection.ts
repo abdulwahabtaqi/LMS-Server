@@ -132,3 +132,19 @@ export const rejectRequest = async (req: Request, res: Response) => {
         return ApiResponse(false, "Something went wrong.", error, 500, res);
     }
 };
+
+
+export const deleteConnection = async (req: Request, res: Response) => {
+    const { connectionId } = req.params;
+
+    try {
+        const deletedConnection = await prisma.connectionRequest.delete({
+            where: { id: connectionId },
+        });
+
+        return ApiResponse(true, "Connection removed.", deletedConnection, 200, res);
+    } catch (error) {
+        console.log("deleteConnection::error", JSON.stringify(error));
+        return ApiResponse(false, "Something went wrong.", error, 500, res);
+    }
+};

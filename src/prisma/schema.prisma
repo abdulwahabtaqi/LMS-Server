@@ -60,6 +60,7 @@ model User {
   status            Status             @default(INACTIVE)
   sentRequests      ConnectionRequest[] @relation("SentRequests")
   receivedRequests  ConnectionRequest[] @relation("ReceivedRequests")
+  profileImage      String?     
 }
 
 model ConnectionRequest {

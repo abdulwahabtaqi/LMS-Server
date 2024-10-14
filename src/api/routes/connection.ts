@@ -1,5 +1,5 @@
 import express from "express";
-import { sendConn, getAcceptedConnections, getPendingConnections, acceptRequest, rejectRequest, getSendPending } from "./../controllers/connection/connection";
+import { sendConn, getAcceptedConnections, getPendingConnections, acceptRequest, rejectRequest, getSendPending, deleteConnection } from "./../controllers/connection/connection";
 const router = express.Router();
 
 router.post('/sendConn', sendConn);
@@ -8,5 +8,6 @@ router.get('/getPendingConnections/:userId', getPendingConnections);
 router.get('/getSendPending/:userId', getSendPending);
 router.post('/acceptRequest', acceptRequest);
 router.post('/rejectRequest', rejectRequest);
+router.delete('/deleteConnection/:connectionId', deleteConnection);
 
 export default router;

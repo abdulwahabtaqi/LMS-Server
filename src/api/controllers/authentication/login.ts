@@ -26,7 +26,7 @@ export const LoginHandler = async (req: Request, res: Response) => {
         if (!user.approved) {
             return ApiResponse(false, "Your approval is pending. Please wait for the admin to approve your account.", null, 200, res);
         }
-        const token = jwt?.sign({ id: user?.id, email: user?.email, name: user?.name, role: user?.role, joinDate: user?.createdAt } as JWTEncryptedData, process.env.JWT_SECRET as string, { expiresIn: '1d' });
+        const token = jwt?.sign({ id: user?.id, email: user?.email, name: user?.name, role: user?.role, joinDate: user?.createdAt, profileImage: user?.profileImage, } as JWTEncryptedData, process.env.JWT_SECRET as string, { expiresIn: '1d' });
         return ApiResponse(true, "Login successful", token, 200, res);
     }
     catch (error) {

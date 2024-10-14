@@ -45,3 +45,4 @@ export const RegistrationHandler = async (req: Request, res: Response) => {
         return ApiResponse(false, "Validation Error", error, 500, res);
     }
 };
+
