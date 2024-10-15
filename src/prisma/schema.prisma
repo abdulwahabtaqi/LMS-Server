@@ -60,7 +60,10 @@ model User {
   status            Status             @default(INACTIVE)
   sentRequests      ConnectionRequest[] @relation("SentRequests")
   receivedRequests  ConnectionRequest[] @relation("ReceivedRequests")
+  assignments       Assignment[]        @relation("TeacherAssignments")
+  submissions       Submission[]        @relation("StudentSubmissions")
   profileImage      String?     
+  
 }
 
 model ConnectionRequest {
@@ -70,7 +73,6 @@ model ConnectionRequest {
   status      String   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
   sender      User     @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
   receiver    User     @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
 }
@@ -88,24 +90,28 @@ model Grade {
   school    School?   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   schoolId  String?
   grade     String?
-  subjects  Subject[]
+  subjects  Subject[] // Assuming a Grade can have multiple subjects
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+   assignments Assignment[] 
 
   @@unique([schoolId, grade])
 }
 
 model Subject {
   id        String   @id @default(uuid())
-  grade     Grade?   @relation(fields: [gradeId], references: [id], onDelete: Cascade)
   gradeId   String?
+  grade     Grade?   @relation(fields: [gradeId], references: [id], onDelete: Cascade)
   subject   String?
-  topics    Topic[]
+  topics    Topic[]  
+  assignments Assignment[] // Add this field for the opposite relation
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([gradeId, subject])
 }
+
+
 
 model Topic {
   id        String     @id @default(uuid())
@@ -185,4 +191,34 @@ model ExportedQuestion {
   status      ExportedQuestionStatus @default(NORMAL)
   createdAt   DateTime               @default(now())
   updatedAt   DateTime               @updatedAt
+}
+
+model Assignment {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  teacher     User        @relation("TeacherAssignments", fields: [teacherId], references: [id], onDelete: Cascade)
+  teacherId   String     
+  submissions Submission[] @relation("AssignmentSubmissions")
+  subjectId   String?     // Foreign key for Subject
+  subject     Subject?    @relation(fields: [subjectId], references: [id], onDelete: Cascade) 
+  gradeId     String?     
+  grade       Grade?      @relation(fields: [gradeId], references: [id], onDelete: Cascade) 
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+
+
+
+model Submission {
+  id           String      @id @default(uuid())
+  assignment   Assignment  @relation("AssignmentSubmissions", fields: [assignmentId], references: [id], onDelete: Cascade)
+  assignmentId String    
+  student      User        @relation("StudentSubmissions", fields: [studentId], references: [id], onDelete: Cascade)
+  studentId    String      
+  fileUrl      String     
+  marks        Int?        
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 }

@@ -16,6 +16,7 @@ import image from './image';
 import users from './users';
 import connection from './connection';
 import teacher from './teacher';
+import assignment from './assignment';
 import test from './Test';
 
 
@@ -36,6 +37,7 @@ router.use('/image', Authentication, Authorization(["admin"]), image);
 router.use('/users', Authentication, Authorization(["admin"]), users);
 router.use('/teachers', Authentication, teacher);
 router.use('/connection', Authentication, connection);
+router.use('/assignment', Authentication, assignment);
 router.use('/test', test);
 
 export default router;
