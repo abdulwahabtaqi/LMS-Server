@@ -1,8 +1,9 @@
 import { ApiResponse } from "@/shared";
 import { Request, Response } from "express";
 import { prisma } from "@/shared/prisma";
+import { v2 as cloudinary } from "cloudinary";
+
 import path from "path";
-import { orderBy } from "lodash";
 
 export const createAssignment = async (req: Request, res: Response) => {
     try {
@@ -128,24 +129,71 @@ export const getConnectedAssignments = async (req: Request, res: Response) => {
 
 
 
+// export const submitAssignment = async (req: Request, res: Response) => {
+//     try {
+//         const { assignmentId, studentId } = req.body;
+
+
+//         if (!assignmentId || !studentId || !req.file) {
+//             return ApiResponse(false, "Missing required fields or file", null, 400, res);
+//         }
+
+//         // Get the uploaded file URL
+//         const fileUrl = path.join('src/uploads/assignments', req.file.filename);
+
+//         // Check if the assignment and student exist
+//         const assignment = await prisma.assignment.findUnique({
+//             where: { id: assignmentId }
+//         });
+//         const student = await prisma.user.findUnique({
+//             where: { id: studentId }
+//         });
+
+//         if (!assignment || !student) {
+//             return ApiResponse(false, "Assignment or student not found", null, 404, res);
+//         }
+
+//         // Create a new submission entry
+//         const submission = await prisma.submission.create({
+//             data: {
+//                 assignment: { connect: { id: assignmentId } },
+//                 student: { connect: { id: studentId } },
+//                 fileUrl: fileUrl,
+//             }
+//         });
+
+//         return ApiResponse(true, "Assignment submitted successfully", submission, 201, res);
+//     } catch (error) {
+//         console.log("submitAssignment::error", JSON.stringify(error));
+//         return ApiResponse(false, "Error submitting assignment", error, 500, res);
+//     }
+// };
+
+
 export const submitAssignment = async (req: Request, res: Response) => {
     try {
-        const { assignmentId, studentId } = req.body;
+        const { assignmentId, userId, file } = req.body;
 
 
-        if (!assignmentId || !studentId || !req.file) {
+        if (!assignmentId || !userId || !file) {
             return ApiResponse(false, "Missing required fields or file", null, 400, res);
         }
 
-        // Get the uploaded file URL
-        const fileUrl = path.join('src/uploads/assignments', req.file.filename);
+
+        const result = await cloudinary.uploader.upload(file, {
+            folder: "assignments",
+            resource_type: "auto",
+
+        })
+        console.log(result)
+
 
         // Check if the assignment and student exist
         const assignment = await prisma.assignment.findUnique({
             where: { id: assignmentId }
         });
         const student = await prisma.user.findUnique({
-            where: { id: studentId }
+            where: { id: userId }
         });
 
         if (!assignment || !student) {
@@ -156,8 +204,8 @@ export const submitAssignment = async (req: Request, res: Response) => {
         const submission = await prisma.submission.create({
             data: {
                 assignment: { connect: { id: assignmentId } },
-                student: { connect: { id: studentId } },
-                fileUrl: fileUrl,
+                student: { connect: { id: userId } },
+                fileUrl: result.secure_url,
             }
         });
 
@@ -167,7 +215,6 @@ export const submitAssignment = async (req: Request, res: Response) => {
         return ApiResponse(false, "Error submitting assignment", error, 500, res);
     }
 };
-
 
 export const getSingleAssignment = async (req: Request, res: Response) => {
     try {

@@ -13,7 +13,6 @@ import { v2 as cloudinary } from 'cloudinary';
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads/assignments')));
 
-console.log("Uploads path:", path.join(__dirname, 'src/uploads/assignments'));
 
 app.use(cors({
     // origin: "https://lms-client-hazel.vercel.app",

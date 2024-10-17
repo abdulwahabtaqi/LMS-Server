@@ -28,7 +28,8 @@ const router = express.Router();
 router.post("/create", createAssignment);
 router.get("/myAssignments/:teacherId", getAssignedAssignments);
 router.get("/allAssignments/:userId", getConnectedAssignments);
-router.post("/submit", upload.single('file'), submitAssignment);
+router.post("/submit", submitAssignment);
+// router.post("/submit", upload.single('file'), submitAssignment);
 router.get('/:assignmentId/user/:userId', getSingleAssignment);
 
 export default router;

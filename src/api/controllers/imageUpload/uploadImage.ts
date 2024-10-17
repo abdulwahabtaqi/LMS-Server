@@ -6,13 +6,12 @@ import { prisma } from "@/shared/prisma";
 export const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const image = req.body.image
-        console.log(image)
 
         const result = await cloudinary.uploader.upload(image, {
             folder: "mcqs",
             transformation: [{ width: 500, height: 500, crop: "limit" }]
         })
-        console.log(result)
+
 
         const savedImage = await prisma.image.create({
             data: {
