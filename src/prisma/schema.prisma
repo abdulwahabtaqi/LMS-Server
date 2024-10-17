@@ -37,6 +37,11 @@ enum DifficultyLevel {
   HARD
 }
 
+enum SubmissionStatus {
+  PENDING
+  SUBMITTED
+}
+
 enum ExportTypes {
   PRACTICE
   PAPER
@@ -90,7 +95,7 @@ model Grade {
   school    School?   @relation(fields: [schoolId], references: [id], onDelete: Cascade)
   schoolId  String?
   grade     String?
-  subjects  Subject[] // Assuming a Grade can have multiple subjects
+  subjects  Subject[] 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
    assignments Assignment[] 
@@ -219,6 +224,7 @@ model Submission {
   studentId    String      
   fileUrl      String     
   marks        Int?        
+  status       SubmissionStatus @default(PENDING)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 }

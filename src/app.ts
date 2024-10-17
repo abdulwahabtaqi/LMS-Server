@@ -1,11 +1,19 @@
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
+import routes from './api/routes';
+import path from 'path';
+
 import cors from 'cors';
 // import helmet from 'helmet';
 import { json } from 'body-parser';
 const app = express();
 import { v2 as cloudinary } from 'cloudinary';
+
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads/assignments')));
+
+console.log("Uploads path:", path.join(__dirname, 'src/uploads/assignments'));
 
 app.use(cors({
     // origin: "https://lms-client-hazel.vercel.app",
@@ -22,8 +30,6 @@ app.use(express.json({
 const port = process.env.PORT || 4000;
 
 // app.use(helmet());
-import routes from './api/routes';
-
 
 
 
