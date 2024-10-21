@@ -152,7 +152,8 @@ export const getConnectedAssignments = async (req: Request, res: Response) => {
                 createdAt: assignment.createdAt,
                 updatedAt: assignment.updatedAt,
                 status: submission ? 'Submitted' : 'Pending', // Check if there's a submission
-                submittedAt: submission ? submission.createdAt : null // If submitted, get the submission date
+                submittedAt: submission ? submission.createdAt : null,// If submitted, get the submission date
+                marks: submission ? submission.marks : null
             };
         });
 
