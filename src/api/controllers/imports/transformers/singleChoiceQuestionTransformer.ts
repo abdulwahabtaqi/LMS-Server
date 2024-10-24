@@ -11,9 +11,6 @@ export const singleChoiceQuestionTransformer = (data: any): any[] => {
     const mcqQuestions = [] as any[];
     tempArray?.forEach((x: any) => {
 
-
-
-
         mcqQuestions?.push({
             Type: "MCQ",
             DifficultyLevel: x?.__EMPTY_2?.toUpperCase(),

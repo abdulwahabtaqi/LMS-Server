@@ -373,7 +373,7 @@ export const createLongQuestions = (csvData: any, subTopicId: any) => {
             questionImage: x?.Answer,
             type: x?.Type,
         } as any);
-        console.log("XXXXX,", x)
+
 
 
         LongAnswers.push({

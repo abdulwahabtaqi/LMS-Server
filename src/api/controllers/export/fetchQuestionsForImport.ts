@@ -39,6 +39,19 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
             usedQuestions = await fetchReservedQuestions(req?.user?.id ?? "");
         }
         console.log("usedQuestions===>", usedQuestions)
+
+        const deduplicateAnswers = (answers: any[]) => {
+            const uniqueAnswers = new Map<string, any>();
+
+            answers.forEach(answer => {
+                const key = `${answer.answer}-${answer.isCorrect}`; // Create a unique key based on answer and correctness
+                if (!uniqueAnswers.has(key)) {
+                    uniqueAnswers.set(key, answer);
+                }
+            });
+
+            return Array.from(uniqueAnswers.values());
+        };
         if (MCQVisible) {
             mcqQuestion = await prisma.question.findMany({
                 where: {
@@ -57,6 +70,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(mcqQuestionQuantity.toString()),
             });
+            mcqQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
+            });
         }
         if (shortQuestionVisible) {
             shortQuestion = await prisma.question.findMany({
@@ -72,6 +88,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                     answers: true
                 },
                 take: parseInt(shortQuestionQuantity?.toString()),
+            });
+            shortQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
             });
             console.log("shortQuestion", shortQuestion);
         }
@@ -90,6 +109,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(longQuestionQuantity?.toString()),
             });
+            longQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
+            });
         }
         if (fillInTheBlanksVisible) {
             fillInTheBlanksQuestion = await prisma.question.findMany({
@@ -105,6 +127,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                     answers: true
                 },
                 take: parseInt(fillInTheBlanksQuantity?.toString()),
+            });
+            fillInTheBlanksQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
             });
         }
         if (multiFillInTheBlanksVisible) {
@@ -122,6 +147,10 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(multiFillInTheBlanksQuantity?.toString()),
             });
+            multiFillInTheBlanksQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
+            });
+
         }
         if (multipleShortVisible) {
             multipleShortQuestion = await prisma.question.findMany({
@@ -137,6 +166,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                     answers: true
                 },
                 take: parseInt(multipleShortQuantity?.toString()),
+            });
+            multipleShortQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
             });
         }
         if (multipleTrueFalseVisible) {
@@ -154,6 +186,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(multipleTrueFalseQuantity?.toString()),
             });
+            multipleTrueFalseQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
+            });
         }
         if (sequenceVisible) {
             sequenceQuestion = await prisma.question.findMany({
@@ -170,6 +205,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                 },
                 take: parseInt(sequenceQuantity?.toString()),
             });
+            sequenceQuestion.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
+            });
         }
         if (multipleQuestionV2Visible) {
             multipleShortQuestionV2 = await prisma.question.findMany({
@@ -185,6 +223,9 @@ export const FetchQuestionsForExportHandler = async (req: AuthenticatedRequest, 
                     answers: true
                 },
                 take: parseInt(multipleQuestionV2Quantity?.toString()),
+            });
+            multipleShortQuestionV2.forEach(q => {
+                q.answers = deduplicateAnswers(q.answers);
             });
         }
         return ApiResponse(true, "You can choose question for paper now", { mcqQuestion, shortQuestion, longQuestion, fillInTheBlanksQuestion, multiFillInTheBlanksQuestion, multipleShortQuestion, multipleTrueFalseQuestion, sequenceQuestion, multipleShortQuestionV2 }, 200, res);

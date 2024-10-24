@@ -65,9 +65,8 @@ model User {
   status            Status             @default(INACTIVE)
   sentRequests      ConnectionRequest[] @relation("SentRequests")
   receivedRequests  ConnectionRequest[] @relation("ReceivedRequests")
-  assignments       Assignment[]        @relation("TeacherAssignments")
-  submissions       Submission[]        @relation("StudentSubmissions")
   profileImage      String?     
+  assignmentQuestions assignmentQuestion[] 
   
 }
 
@@ -86,6 +85,8 @@ model School {
   id        String   @id @default(uuid())
   type      String?  @unique
   grades    Grade[]
+ assignmentQuestions assignmentQuestion[] @relation("Assignment_School")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -96,10 +97,10 @@ model Grade {
   schoolId  String?
   grade     String?
   subjects  Subject[] 
+ assignmentQuestions assignmentQuestion[] @relation("Assignment_Grade")
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-   assignments Assignment[] 
-
   @@unique([schoolId, grade])
 }
 
@@ -109,9 +110,10 @@ model Subject {
   grade     Grade?   @relation(fields: [gradeId], references: [id], onDelete: Cascade)
   subject   String?
   topics    Topic[]  
-  assignments Assignment[] // Add this field for the opposite relation
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+ assignmentQuestions assignmentQuestion[] @relation("Assignment_Subject")
+
 
   @@unique([gradeId, subject])
 }
@@ -126,6 +128,8 @@ model Topic {
   subTopics SubTopic[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
+ assignmentQuestions assignmentQuestion[] @relation("Assignment_Topic")
+
 
   @@unique([subjectId, topic])
 }
@@ -139,6 +143,7 @@ model SubTopic {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
+ assignmentQuestions assignmentQuestion[] @relation("Assignment_SubTopic")
   @@unique([topicId, subTopic])
 }
 
@@ -159,6 +164,7 @@ model Question {
   importId          String             @unique
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
+  assignmentQuestions assignmentQuestion[] @relation("AssignmentQuestions")
   // @@unique([subTopicId, question])
 }
 
@@ -197,42 +203,30 @@ model ExportedQuestion {
   createdAt   DateTime               @default(now())
   updatedAt   DateTime               @updatedAt
 }
-
-model Assignment {
-  id                String      @id @default(uuid())
-  teacher           User        @relation("TeacherAssignments", fields: [teacherId], references: [id], onDelete: Cascade)
-  teacherId         String     
-  submissions       Submission[] @relation("AssignmentSubmissions")
-  subjectId         String?    
-  subject           Subject?    @relation(fields: [subjectId], references: [id], onDelete: Cascade) 
-  gradeId           String?     
-  grade             Grade?      @relation(fields: [gradeId], references: [id], onDelete: Cascade) 
-  totalMarks        Int?     
-  lastSubmissionDate DateTime? 
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
-  titles            Title[]     @relation("AssignmentTitles") // Relation to the Title model
-}
-
-model Title {
-  id          String      @id @default(uuid())
-  name        String     
-  description String?     
-  assignment  Assignment  @relation("AssignmentTitles", fields: [assignmentId], references: [id], onDelete: Cascade)
-  assignmentId String      
-}
-
-
-
-model Submission {
-  id           String      @id @default(uuid())
-  assignment   Assignment  @relation("AssignmentSubmissions", fields: [assignmentId], references: [id], onDelete: Cascade)
-  assignmentId String    
-  student      User        @relation("StudentSubmissions", fields: [studentId], references: [id], onDelete: Cascade)
-  studentId    String      
-  fileUrl      String     
-  marks        Int?        
-  status       SubmissionStatus @default(PENDING)
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+model assignmentQuestion {
+  id          String    @id @default(uuid())
+  name        String    @default("")
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?
+  
+  questions   Question[] @relation("AssignmentQuestions")
+  
+  // Relations to School, Grade, Subject, Topic, SubTopic
+  school      School?   @relation(fields: [schoolId], references: [id], onDelete: Cascade,  name:"Assignment_School")
+  schoolId    String?
+  
+  grade       Grade?    @relation(fields: [gradeId], references: [id], onDelete: Cascade, name:"Assignment_Grade")
+  gradeId     String?
+  
+  subject     Subject?  @relation(fields: [subjectId], references: [id], onDelete: Cascade, name:"Assignment_Subject")
+  subjectId   String?
+  
+  topic       Topic?    @relation(fields: [topicId], references: [id], onDelete: Cascade, name:"Assignment_Topic")
+  topicId     String?
+  
+  subTopic    SubTopic?  @relation(fields: [subTopicId], references: [id], onDelete: Cascade, name: "Assignment_SubTopic")
+  subTopicId  String?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
