@@ -12,9 +12,10 @@ export const FetchQuestionsHandler = async (req: Request, res: Response) => {
             include: {
                 subTopic: true,
                 answers: true
+
             }
         });
-        return ApiResponse(true, "Questions Fetched Successfully", questions, 200, res);    
+        return ApiResponse(true, "Questions Fetched Successfully", questions, 200, res);
     }
     catch (error) {
         console.log("FetchTopicsHandler::error", JSON?.stringify(error));

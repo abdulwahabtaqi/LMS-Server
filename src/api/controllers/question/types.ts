@@ -1,14 +1,15 @@
 export interface Question {
-     subTopicId:string;
-     question:string;
-     marks:number;
-     type:QuestionType;
-     difficultyLevel:QuestionDifficultyLevel;
-     answerCount:number;
-     importId:string;
-     questionImage:string;
-     mcqImage:boolean;
-     additional:string;
+     subTopicId: string;
+     question: string;
+     marks: number;
+     type: QuestionType;
+     difficultyLevel: QuestionDifficultyLevel;
+     answerCount: number;
+     importId: string;
+     questionImage: string;
+     mcqImage: boolean;
+     additional: string;
+     answer?: string
 }
 
 export enum QuestionType {
@@ -18,7 +19,7 @@ export enum QuestionType {
      MULTIPLLONG = "MULTIPLLONG",
      SHORT = "SHORT",
      FILLINTHEBLANK = "FILLINTHEBLANK"
-} 
+}
 export enum QuestionDifficultyLevel {
      EASY = "EASY",
      MEDIUM = "MEDIUM",
